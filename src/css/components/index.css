@@ -526,6 +526,9 @@ Category Icon
 .icon.mack {
     background-image: url('/assets/images/mack-headshot-8bit-color.png');
 }
+.icon.m-logo {
+    background-image: url('/assets/images/m-logo.png');
+}
 .icon.web-development {
     background-image: url('/assets/images/homepage-builder.png');
 }

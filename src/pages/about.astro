@@ -24,6 +24,7 @@ const description =
     id="window-content"
     data-window-id="window-about"
     data-window-title={`${title} ${author}`}
+    data-window-icon="m-logo"
   >
   <main>
     <div class="card__wrapper">
@@ -40,7 +41,7 @@ const description =
             <h3 class="card__title">
               {title} {author}
             </h3>
-            <span class="icon">&nbsp;</span>
+            <span class="icon m-logo">&nbsp;</span>
           </div>
           <img
             src="/assets/images/title-bar-expand.png"
@@ -134,11 +135,11 @@ const description =
                   tv shows based on them.
                 </p>
                 <p>
-                  Mack runs The RetroCult, a channel about the joys
-                  of comic books, toys, games <i
-                    >(of the physical and video variety)</i
-                  >, and almost anything else that's fun in the Pop Culture
-                  universe with his brother-in-law and fellow collector, Chuck.
+                  Mack runs The RetroCult with his brother-in-law and fellow
+                  collector, Chuck. Together, they celebrate the joys of comic
+                  books, toys, games <i>(both tabletop and video)</i>, and
+                  just about anything else that makes the pop culture universe
+                  so much fun.
                 </p>
                 <div class="buttons">
                   <a
@@ -207,6 +208,7 @@ const description =
   }
   #content p {
     margin-bottom: 2rem;
+    text-align: left;
   }
   #content p:last-of-type {
     margin-bottom: 0;
