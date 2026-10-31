@@ -5,14 +5,12 @@ needs attention, not by size.
 
 ## Next Up
 
-- [ ] Push the latest commits on `interactive-gui` to origin
+- [ ] Push the RSS `<link>` title fix to origin
 
 ## Backlog
 
 Concrete, scoped issues surfaced by the pre-launch audit:
 
-- [ ] `BaseHead.astro`'s RSS `<link>` tag has a literal placeholder title
-      (`"Your Site's Title"`)
 - [ ] `og:image` / `twitter:image` use a relative URL (`ogImage` from
       `site.json`) instead of an absolute one — likely breaks social-share
       previews
@@ -36,6 +34,9 @@ Low priority, nice-to-have, no urgency:
 
 ## Done
 
+- [x] Fixed `BaseHead.astro`'s RSS `<link>` tag, which had a literal
+      placeholder title (`"Your Site's Title"`) — now matches the actual
+      feed title from `rss.xml.js`
 - [x] Privacy Policy: corrected the false "no cookies / no data collection"
       claims to accurately disclose Google Analytics
 - [x] Removed Disqus entirely (dead `count.js` script, the unused `Comments`
