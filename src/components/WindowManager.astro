@@ -137,6 +137,21 @@
        menu bar + margin, header, this new gutter margin, this new border. */
     max-height: calc(100vh - 76px - 40px - 36px - 4px);
   }
+  /* index.css's .popup (closed state) sets pointer-events: none -- but
+     that isn't inherited the way opacity/visibility are; any descendant
+     with its own pointer-events value wins regardless of the ancestor's.
+     Post pages opt a couple of elements back into pointer-events: all
+     (.hero-image img for its hover effect, #content for the post body's
+     own links), which still applies even once the window carrying them
+     is closed. A closed window stays centered at its last (often very
+     high, post-bringToFront) z-index, invisible but still in the DOM --
+     so that leftover pointer-events: all silently intercepts clicks
+     meant for whatever's really underneath (e.g. another "Read More"
+     link on the blog list). Force every descendant of a closed popup
+     back to none, regardless of what it sets for itself while open. */
+  .popup:not(.is-open) * {
+    pointer-events: none !important;
+  }
 </style>
 
 <script>
