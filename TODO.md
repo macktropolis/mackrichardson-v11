@@ -5,15 +5,12 @@ needs attention, not by size.
 
 ## Next Up
 
-- [ ] Push the RSS `<link>` title fix to origin
+- [ ] Push the social-image URL fix to origin
 
 ## Backlog
 
 Concrete, scoped issues surfaced by the pre-launch audit:
 
-- [ ] `og:image` / `twitter:image` use a relative URL (`ogImage` from
-      `site.json`) instead of an absolute one — likely breaks social-share
-      previews
 - [ ] No `robots.txt` in `public/`
 - [ ] Decide the fate of `/author/[...author].astro` — it's the only route
       still using the pre-window-system card grid (doesn't open as a
@@ -34,6 +31,8 @@ Low priority, nice-to-have, no urgency:
 
 ## Done
 
+- [x] Fixed `og:image`/`twitter:image` using a relative URL instead of an
+      absolute one — social-share previews need the full URL to fetch it
 - [x] Fixed `BaseHead.astro`'s RSS `<link>` tag, which had a literal
       placeholder title (`"Your Site's Title"`) — now matches the actual
       feed title from `rss.xml.js`
