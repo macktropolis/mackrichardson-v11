@@ -5,16 +5,12 @@ needs attention, not by size.
 
 ## Next Up
 
-- [ ] Push the `robots.txt` addition to origin
+- [ ] Push the `/author/` page removal to origin
 
 ## Backlog
 
 Concrete, scoped issues surfaced by the pre-launch audit:
 
-- [ ] Decide the fate of `/author/[...author].astro` — it's the only route
-      still using the pre-window-system card grid (doesn't open as a
-      floating window like Blog/Category/Tag do), and is functionally
-      redundant since `author` only ever has one value
 - [ ] Decide when/whether to merge `interactive-gui` into `main` (currently a
       clean fast-forward, no divergence)
 
@@ -25,11 +21,16 @@ Low priority, nice-to-have, no urgency:
 - [ ] Duplicate `<meta name="description">` tag in `BaseHead.astro`
 - [ ] Viewport meta is missing `initial-scale=1`
 - [ ] Clean up dead/dormant components: `Snowfall`, `Christmas`,
-      `RelatedPosts`, `Pagination`, `Tags-Bak`, `FeatureImage`, `Link`
+      `Pagination`, `Tags-Bak`, `FeatureImage`, `Link`
 - [ ] Holiday Cards redesign (currently unlinked from the UI pending this)
 
 ## Done
 
+- [x] Killed `/author/[...author].astro` — it was the last route still using
+      the pre-window-system card grid and was functionally redundant since
+      `author` only ever has one value. Also removed `PostCard.astro`,
+      `SectionHeader-Author.astro`, and `RelatedPosts.astro` (dead now that
+      their only live/dead-but-linked consumer is gone)
 - [x] Added `robots.txt`, pointing crawlers at the sitemap
 - [x] Fixed `og:image`/`twitter:image` using a relative URL instead of an
       absolute one — social-share previews need the full URL to fetch it

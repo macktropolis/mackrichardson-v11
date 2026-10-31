@@ -11,7 +11,6 @@ import Layout from "../../layouts/Layout.astro";
 
 //  component imports
 //  import Hero from "../../components/SectionHeader.astro";
-// import RelatedPosts from "../../components/RelatedPosts.astro";
 import TagCloud from "../../components/Tags.astro";
 
 // utils imports
@@ -40,17 +39,6 @@ const { title, description, date, category, tags, image } = post.data;
 const { url } = site;
 
 const { Content } = await render(post);
-
-const allPosts = await getCollection("blog");
-const formattedPosts = formatBlogPosts(allPosts, {
-  sortByDate: false,
-});
-const relatedPosts = formattedPosts
-  .filter(
-    //@ts-ignore
-    (post) => post.data.category === category && post.data.title !== title,
-  )
-  .slice(0, 3);
 
 // const hasSpecificTag = tags?.includes("mackdaddy");
 // Replace "specific-tag" with the tag you want to check
@@ -221,9 +209,7 @@ const postURL = url + "/blog/" + postSlug;
         </div>
       </div><!-- end: .card-wrapper -->
     </main>
-    <aside class="related">
-      <!-- <RelatedPosts {relatedPosts} /> -->
-    </aside>
+    <aside class="related"></aside>
   </div>
   </div>
 </Layout>

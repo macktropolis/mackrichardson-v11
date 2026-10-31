@@ -34,7 +34,7 @@ There is no test suite, linter, or CI. `astro check` (TypeScript) runs as part o
   - `index.astro` — home, lists all posts
   - `blog/[...page].astro` — paginated post list; `blog/[slug].astro` — single post
     (contains a large `is:global` `<style>` block)
-  - `category/[...category].astro`, `tags/[tag].astro`, `author/[...author].astro` — taxonomy pages
+  - `category/[...category].astro`, `tags/[tag].astro` — taxonomy pages
   - `about.astro`, `404.astro`, `rss.xml.js`
   - `holiday-cards/` — family holiday-card feature; `index.astro` iframes the static `holiday-cards.html`
 - `src/content/blog/` — Markdown posts (single `blog` collection)
@@ -43,7 +43,7 @@ There is no test suite, linter, or CI. `astro check` (TypeScript) runs as part o
   sidebar, `<slot />`, and four `:target`-toggled popups (`#popup1`–`#popup4`)
 - `src/components/` — `.astro` components. Cards emulate OS 9 windows (title bars with
   close/expand/collapse control images). Several components are dormant/unused
-  (`Snowfall`, `Christmas`, `RelatedPosts`, `Tags-Bak`, `FeatureImage`, `Link`).
+  (`Snowfall`, `Christmas`, `Tags-Bak`, `FeatureImage`, `Link`).
 - `src/js/utils.js` — `slugify()`, `formatDate()`, `formatBlogPosts()`
 - `src/data/site.json` — site-wide metadata (name, description, socials, contact)
 
