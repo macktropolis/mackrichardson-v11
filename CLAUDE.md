@@ -24,8 +24,8 @@ There is no test suite, linter, or CI. `astro check` (TypeScript) runs as part o
 - Integrations: `@astrojs/sitemap`, `@astrojs/rss`, `astro-icon`
 - **Pagefind** search index is generated at build time and copied to `public/pagefind`,
   but no search UI is currently wired into any page/component
-- Google Analytics (`src/components/GoogleAnalytics.astro`) and Disqus comment-count
-  script (in `Layout.astro`) are active; the `Comments` component is commented out
+- Google Analytics (`src/components/GoogleAnalytics.astro`) is active; Disqus has been
+  removed entirely (no comments feature)
 - TypeScript is loose — `//@ts-ignore` is used liberally in page frontmatter
 
 ## Structure
@@ -43,7 +43,7 @@ There is no test suite, linter, or CI. `astro check` (TypeScript) runs as part o
   sidebar, `<slot />`, and four `:target`-toggled popups (`#popup1`–`#popup4`)
 - `src/components/` — `.astro` components. Cards emulate OS 9 windows (title bars with
   close/expand/collapse control images). Several components are dormant/unused
-  (`Snowfall`, `Christmas`, `RelatedPosts`, `Comments`, `Tags-Bak`, `FeatureImage`, `Link`).
+  (`Snowfall`, `Christmas`, `RelatedPosts`, `Tags-Bak`, `FeatureImage`, `Link`).
 - `src/js/utils.js` — `slugify()`, `formatDate()`, `formatBlogPosts()`
 - `src/data/site.json` — site-wide metadata (name, description, socials, contact)
 
