@@ -97,7 +97,14 @@ const { author } = site;
     height: 28px;
     position: fixed;
     inset: 0 0 auto 0;
-    z-index: 100;
+    /* WindowManager.astro's bringToFront() starts windows at z-index 1000
+       and keeps incrementing every time one is opened or clicked -- any
+       fixed value in that range eventually loses to an open window,
+       burying the menu bar (and its dropdown submenus, which inherit this
+       stacking context) behind it. The real Mac OS menu bar always sits
+       above every window, so this uses the max safe z-index rather than
+       guessing a number windows will never reach. */
+    z-index: 2147483647;
   }
   .site__nav {
     display: flex;
