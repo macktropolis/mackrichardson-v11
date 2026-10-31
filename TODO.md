@@ -5,13 +5,12 @@ needs attention, not by size.
 
 ## Next Up
 
-- [ ] Push the social-image URL fix to origin
+- [ ] Push the `robots.txt` addition to origin
 
 ## Backlog
 
 Concrete, scoped issues surfaced by the pre-launch audit:
 
-- [ ] No `robots.txt` in `public/`
 - [ ] Decide the fate of `/author/[...author].astro` — it's the only route
       still using the pre-window-system card grid (doesn't open as a
       floating window like Blog/Category/Tag do), and is functionally
@@ -31,6 +30,7 @@ Low priority, nice-to-have, no urgency:
 
 ## Done
 
+- [x] Added `robots.txt`, pointing crawlers at the sitemap
 - [x] Fixed `og:image`/`twitter:image` using a relative URL instead of an
       absolute one — social-share previews need the full URL to fetch it
 - [x] Fixed `BaseHead.astro`'s RSS `<link>` tag, which had a literal
