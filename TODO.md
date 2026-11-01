@@ -10,10 +10,7 @@ _(nothing pending)_
 
 ## Backlog
 
-Concrete, scoped issues surfaced by the pre-launch audit:
-
-- [ ] `#1` Decide when/whether to merge `interactive-gui` into `main`
-      (currently a clean fast-forward, no divergence)
+_(nothing pending)_
 
 ## Someday
 
@@ -23,6 +20,8 @@ _(nothing pending)_
 
 ## Done
 
+- [x] `#1` Merged `interactive-gui` into `main` (clean fast-forward,
+      `4eb8654..7357749`)
 - [x] `#4` Deleted dead/dormant components: `Snowfall`, `Christmas`,
       `Pagination`, `Tags-Bak`, `FeatureImage`, `Link` — none had any live
       references (`Link` was only ever imported by the equally-dead
