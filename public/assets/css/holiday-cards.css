@@ -105,6 +105,43 @@ figure:nth-child(odd) > figcaption::after {
   flex: 1 1 10rem;
 }
 
+/* LIGHTBOX */
+.card-link {
+  cursor: zoom-in;
+  display: block;
+}
+.lightbox {
+  align-items: center;
+  background-color: hsla(var(--dark-blue), 0.9);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 2rem;
+  position: fixed;
+  z-index: 100;
+}
+.lightbox[hidden] {
+  display: none;
+}
+.lightbox__image {
+  max-height: 90vh;
+  max-width: 90vw;
+  width: auto;
+}
+.lightbox__close {
+  background: none;
+  border: none;
+  color: hsl(var(--white));
+  cursor: pointer;
+  font-family: "Mountains of Christmas", cursive;
+  font-size: 3rem;
+  line-height: 1;
+  padding: 0.5rem;
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+}
+
 /* SNOW */
 .snowfall {
   position: fixed;
