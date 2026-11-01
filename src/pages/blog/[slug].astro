@@ -230,24 +230,17 @@ const postURL = url + "/blog/" + postSlug;
   }
   .card__content > article > header {
     border-bottom: 2px solid hsl(var(--color-dark), 1);
-    display: grid;
-    grid-template-areas: "title";
     margin: 0 auto;
     margin-top: 0.25px;
     padding: 0;
     position: relative;
-    place-items: center;
     width: 99.8%;
-  }
-  .card__content > article > header > .hero-image,
-  .card__content > article > header > h1 {
-    grid-area: title;
-    position: relative;
-    z-index: 1;
   }
   .card__content > article > header > .hero-image {
     margin: 0;
     padding: 0;
+    position: relative;
+    z-index: 1;
   }
   .card__content > article > header > h1 {
     background-color: hsl(var(--color-dark), 0.75);
@@ -256,14 +249,14 @@ const postURL = url + "/blog/" + postSlug;
     color: hsl(var(--color-light), 1);
     display: grid;
     font-size: clamp(4ch, 5ch, 7ch);
-    height: 100%;
+    inset: 0;
     line-height: 120%;
     margin: 0 !important;
     padding: 1rem 2rem;
-    pointer-events: none;
     place-items: center;
+    pointer-events: none;
+    position: absolute;
     text-align: center;
-    width: 100%;
     z-index: 5;
   }
   .card__content > article > header > h1 .hero-meta {
@@ -306,7 +299,7 @@ const postURL = url + "/blog/" + postSlug;
     text-align: center;
   }
   #content :where(h2, h3) {
-    font-size: clamp (2ch, 3ch, 1.8rem);
+    font-size: clamp(2ch, 3ch, 1.8rem);
     margin-bottom: 2rem;
   }
   #content h4 {
