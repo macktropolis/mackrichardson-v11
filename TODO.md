@@ -19,11 +19,15 @@ Concrete, scoped issues surfaced by the pre-launch audit:
 
 Low priority, nice-to-have, no urgency:
 
-- [ ] `#4` Clean up dead/dormant components: `Snowfall`, `Christmas`,
-      `Pagination`, `Tags-Bak`, `FeatureImage`, `Link`
+_(nothing pending)_
 
 ## Done
 
+- [x] `#4` Deleted dead/dormant components: `Snowfall`, `Christmas`,
+      `Pagination`, `Tags-Bak`, `FeatureImage`, `Link` — none had any live
+      references (`Link` was only ever imported by the equally-dead
+      `Pagination`). Also dropped the stale commented-out `Snowfall` import
+      in `Layout.astro`
 - [x] `#22` Holiday Cards: card images now open a full-size lightbox (plain
       JS/CSS, `<a class="card-link">` wrapping each thumbnail). Fixed two
       bugs found on real-device testing: images were shrinking to 49% of
