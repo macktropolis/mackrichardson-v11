@@ -20,6 +20,21 @@ _(nothing pending)_
 
 ## Done
 
+- [x] `#23` Fixed production-only bug where opening a blog post via the
+      desktop UI (clicking a post link, handled by `WindowManager.astro`'s
+      fetch-and-splice window navigation) lost all of that post's styling
+      -- hero overlay, title, tags, share buttons. Root cause: the window
+      loader only ever copied inline `<style>` tags from the fetched page,
+      never `<link rel="stylesheet">` tags; dev inlines styles so this was
+      invisible there, but production extracts them to a separate
+      `_slug_.<hash>.css` file that never got imported. Now resolves and
+      loads linked stylesheets too (deduped, awaited before the window
+      opens, with a normal-navigation fallback if a stylesheet fails)
+- [x] `#24` Fixed the homepage "More About Mack" button shifting position
+      on its first click, and not being centered under the intro text --
+      replaced the float-based portrait/text layout with a two-column grid
+      (so button position no longer depends on float reflow), then wrapped
+      the button in a flex `.hero-actions` container to center it reliably
 - [x] `#1` Merged `interactive-gui` into `main` (clean fast-forward,
       `4eb8654..7357749`)
 - [x] `#4` Deleted dead/dormant components: `Snowfall`, `Christmas`,
