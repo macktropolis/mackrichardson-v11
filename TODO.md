@@ -24,6 +24,12 @@ Low priority, nice-to-have, no urgency:
 
 ## Done
 
+- [x] `#22` Holiday Cards: card images now open a full-size lightbox (plain
+      JS/CSS, `<a class="card-link">` wrapping each thumbnail). Fixed two
+      bugs found on real-device testing: images were shrinking to 49% of
+      their link instead of the row (`.card-link img { width: 100% }`), and
+      the fixed, full-viewport `.snowfall` decoration was silently eating
+      every click (`pointer-events: none`)
 - [x] `#5` Holiday Cards redesign: dropped the OS 9 window framing entirely.
       `/holiday-cards/` is now the already-standalone `holiday-cards.html`
       served directly as `index.html` (just the Christmas theme, snowing
