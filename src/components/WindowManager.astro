@@ -485,22 +485,49 @@
 
   // Astro's per-component CSS (scoped via data-astro-cid-* attributes, or
   // is:global) is bundled per page at build time -- it doesn't travel with
-  // a fetched HTML fragment on its own. The extracted markup keeps its
-  // data-astro-cid attributes, so copying over the source page's <style>
-  // tags (deduped by content, since e.g. every list page shares
-  // PostListRow's styles) makes them apply correctly once appended here.
+  // a fetched HTML fragment on its own. Dev serves inline styles, while
+  // production extracts them into linked CSS files. Import both forms
+  // before measuring/opening the window; keep them for other open windows.
   const importedStyles = new Set<string>(
     Array.from(document.querySelectorAll("style")).map(
       (s) => s.textContent ?? "",
     ),
   );
-  function importStylesFrom(doc: Document) {
+  const stylesheetLoads = new Map<string, Promise<void>>();
+
+  async function importStylesFrom(doc: Document, sourceURL: string) {
+    const loads: Promise<void>[] = [];
+    doc.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]').forEach((link) => {
+      const href = new URL(link.getAttribute("href")!, sourceURL).href;
+      let load = stylesheetLoads.get(href);
+      if (!load) {
+        const existing = Array.from(
+          document.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]'),
+        ).some((current) => current.href === href);
+        if (existing) return;
+
+        const imported = link.cloneNode(true) as HTMLLinkElement;
+        imported.href = href;
+        load = new Promise<void>((resolve, reject) => {
+          imported.addEventListener("load", () => resolve(), { once: true });
+          imported.addEventListener("error", () => {
+            imported.remove();
+            stylesheetLoads.delete(href);
+            reject(new Error(`Unable to load stylesheet: ${href}`));
+          }, { once: true });
+        });
+        stylesheetLoads.set(href, load);
+        document.head.appendChild(imported);
+      }
+      loads.push(load);
+    });
     doc.querySelectorAll("style").forEach((style) => {
       const css = style.textContent ?? "";
       if (!css || importedStyles.has(css)) return;
       importedStyles.add(css);
       document.head.appendChild(style.cloneNode(true));
     });
+    await Promise.all(loads);
   }
 
   function promoteOwnContent() {
@@ -549,7 +576,21 @@
     }
     const title = source.dataset.windowTitle || doc.title;
     const icon = source.dataset.windowIcon;
-    importStylesFrom(doc);
+    try {
+      await importStylesFrom(doc, new URL(url, location.href).href);
+    } catch {
+      // A normal navigation lets the browser recover from a failed asset
+      // request instead of leaving a partially styled content window.
+      location.href = url;
+      return;
+    }
+
+    // Two clicks can fetch the same page while its stylesheet is loading.
+    const opened = contentWindows.get(id);
+    if (opened) {
+      openWindowElement(opened);
+      return;
+    }
 
     const win = buildWindowShell(id, title, icon);
     const body = win.querySelector<HTMLElement>(".content-window__body")!;
