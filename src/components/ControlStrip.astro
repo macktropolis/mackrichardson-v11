@@ -13,17 +13,6 @@
 // always ensures the window is open, so it has no `popup` id to sync an
 // active state against.
 //
-// Holiday Cards is hidden for now -- /holiday-cards/ still has the MacOS
-// window framing baked in, which doesn't make sense once it's opening in
-// its own tab rather than as a popup. Revisit once that page drops the
-// framing down to just the Christmas theme; restoring it also needs a
-// target={item.target} back on the <a> below, since no other item uses it:
-// {
-//   href: "/holiday-cards/",
-//   target: "_blank",
-//   title: "Holiday Cards",
-//   icon: "/assets/images/christmas-tree.png",
-// },
 // Alphabetized by title.
 const items = [
   {
@@ -35,6 +24,12 @@ const items = [
     href: "/blog/",
     title: "Blog",
     icon: "/assets/images/book-red.png",
+  },
+  {
+    href: "/holiday-cards/",
+    target: "_blank",
+    title: "Holiday Cards",
+    icon: "/assets/images/christmas-tree.png",
   },
   {
     popup: "popup3",
@@ -53,6 +48,7 @@ const items = [
           href={item.href}
           class="control-strip__item"
           data-popup={item.popup}
+          target={item.target}
           title={item.title}
         >
           <img src={item.icon} alt="" />

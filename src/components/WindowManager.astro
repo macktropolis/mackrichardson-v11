@@ -1,7 +1,7 @@
 ---
-// Lightweight desktop-style window manager for the popups (About, Holiday
-// Cards, Mackintosh HD, Privacy) and any other element opted in via
-// .wm-drag (currently just the Hero "MackOS 9.0" card).
+// Lightweight desktop-style window manager for the popups (About,
+// Mackintosh HD, Privacy) and any other element opted in via .wm-drag
+// (currently just the Hero "MackOS 9.0" card).
 //
 // Popups keep their existing markup and href="#popup1".."#popup4" trigger
 // links everywhere on the site -- this just intercepts clicks on those
@@ -113,20 +113,18 @@
     max-width: 30ch;
     overflow: hidden;
   }
-  /* Privacy and Holiday Cards get the same inset content frame as the
-     content windows above -- gutter, dark border, white highlight outline.
-     They're plain .popup markup (not built by buildWindowShell), so this
-     targets them directly by id rather than through .content-window__body.
-     An id selector reliably outranks each popup's own scoped .card__content
-     rule (padding, in both cases) regardless of source order, so padding is
-     the one thing intentionally left alone here -- unlike the list windows
-     above, there's no prior smaller gutter to size a matching reduction
+  /* Privacy gets the same inset content frame as the content windows
+     above -- gutter, dark border, white highlight outline. It's plain
+     .popup markup (not built by buildWindowShell), so this targets it
+     directly by id rather than through .content-window__body. An id
+     selector reliably outranks the popup's own scoped .card__content rule
+     (padding) regardless of source order, so padding is the one thing
+     intentionally left alone here -- unlike the list windows above,
+     there's no prior smaller gutter to size a matching reduction
      against. */
-  #popup2 > .card,
   #popup4 > .card {
     background-color: hsl(var(--color-mid), 1);
   }
-  #popup2 .card__content,
   #popup4 .card__content {
     background-color: hsl(var(--color-light), 1);
     border: 2px solid hsl(var(--color-dark), 1);

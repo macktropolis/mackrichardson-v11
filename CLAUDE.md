@@ -36,7 +36,9 @@ There is no test suite, linter, or CI. `astro check` (TypeScript) runs as part o
     (contains a large `is:global` `<style>` block)
   - `category/[...category].astro`, `tags/[tag].astro` — taxonomy pages
   - `about.astro`, `404.astro`, `rss.xml.js`
-  - `holiday-cards/` — family holiday-card feature; `index.astro` iframes the static `holiday-cards.html`
+  - `holiday-cards/` — family holiday-card feature; `index.html` is a plain static page
+    (own Christmas theme, no OS 9 chrome, no `Layout.astro`), opened in a new tab from
+    the Media sidebar and Control Strip rather than as a desktop popup
 - `src/content/blog/` — Markdown posts (single `blog` collection)
 - `src/content.config.ts` — collection schema + `glob` loader (Content Layer API; see below)
 - `src/layouts/Layout.astro` — the only layout; composes head, site header, media

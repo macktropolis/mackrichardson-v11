@@ -21,10 +21,16 @@ Low priority, nice-to-have, no urgency:
 
 - [ ] `#4` Clean up dead/dormant components: `Snowfall`, `Christmas`,
       `Pagination`, `Tags-Bak`, `FeatureImage`, `Link`
-- [ ] `#5` Holiday Cards redesign (currently unlinked from the UI pending this)
 
 ## Done
 
+- [x] `#5` Holiday Cards redesign: dropped the OS 9 window framing entirely.
+      `/holiday-cards/` is now the already-standalone `holiday-cards.html`
+      served directly as `index.html` (just the Christmas theme, snowing
+      background, and card images — no Layout, no desktop chrome). Deleted
+      the old `index.astro` wrapper and the now-dead `Popup-HolidayCards.astro`
+      / `#popup2` popup, and re-linked it (`target="_blank"`) from the Media
+      sidebar and the Control Strip
 - [x] `#2` Removed a duplicate `<meta name="description">` tag in
       `BaseHead.astro` (one before the title, one in the Primary Meta Tags
       block)
