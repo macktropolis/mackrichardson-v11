@@ -110,6 +110,9 @@ figure:nth-child(odd) > figcaption::after {
   cursor: zoom-in;
   display: block;
 }
+.card-link img {
+  width: 100%;
+}
 .lightbox {
   align-items: center;
   background-color: hsla(var(--dark-blue), 0.9);
@@ -150,6 +153,10 @@ figure:nth-child(odd) > figcaption::after {
   height: 100%;
   width: 100vw;
   z-index: 10;
+  /* Decorative only -- a fixed, full-viewport box above the content would
+     otherwise swallow every click on the page, even over its mostly-empty
+     gaps between snowflakes. */
+  pointer-events: none;
 }
 .snow {
   position: absolute;
