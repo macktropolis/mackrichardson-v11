@@ -19,14 +19,16 @@ Concrete, scoped issues surfaced by the pre-launch audit:
 
 Low priority, nice-to-have, no urgency:
 
-- [ ] `#2` Duplicate `<meta name="description">` tag in `BaseHead.astro`
-- [ ] `#3` Viewport meta is missing `initial-scale=1`
 - [ ] `#4` Clean up dead/dormant components: `Snowfall`, `Christmas`,
       `Pagination`, `Tags-Bak`, `FeatureImage`, `Link`
 - [ ] `#5` Holiday Cards redesign (currently unlinked from the UI pending this)
 
 ## Done
 
+- [x] `#2` Removed a duplicate `<meta name="description">` tag in
+      `BaseHead.astro` (one before the title, one in the Primary Meta Tags
+      block)
+- [x] `#3` Viewport meta now includes `initial-scale=1`
 - [x] `#6` Killed `/author/[...author].astro` — it was the last route still
       using the pre-window-system card grid and was functionally redundant
       since `author` only ever has one value. Also removed `PostCard.astro`,
