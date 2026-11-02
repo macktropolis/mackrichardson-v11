@@ -154,6 +154,7 @@
 
 <script>
   let topZ = 1000;
+  const notebookLayout = window.matchMedia("(max-width: 1024px)");
 
   // SiteHeader.astro's menu bar is a fixed 28px strip pinned to the top of
   // the viewport; windows are always stacked above it (z-index), so nothing
@@ -212,6 +213,7 @@
     if (!handle) return;
 
     handle.addEventListener("pointerdown", (event) => {
+      if (notebookLayout.matches) return;
       if (!(event.target instanceof Element)) return;
       // Let the close/expand overlay anchors handle their own click
       // instead of starting a drag.
@@ -354,7 +356,7 @@
     // who's on top. The initial server-rendered position inside <main> is
     // untouched -- this only runs once the page is interactive, so a
     // no-JS visitor still gets it in its authored place in the flow.
-    if (win.parentElement !== document.body) {
+    if (!notebookLayout.matches && win.parentElement !== document.body) {
       document.body.appendChild(win);
     }
     makeDraggable(win);
@@ -530,7 +532,15 @@
     await Promise.all(loads);
   }
 
+  let promotedContent: {
+    source: HTMLElement;
+    placeholder: Comment;
+    win: HTMLElement;
+  } | undefined;
+
   function promoteOwnContent() {
+    // Touch layouts use real page navigation and normal document scrolling.
+    if (notebookLayout.matches) return;
     const source = document.getElementById("window-content");
     if (!source) return;
 
@@ -542,7 +552,9 @@
     const win = buildWindowShell(id, title, icon);
     const body = win.querySelector<HTMLElement>(".content-window__body")!;
     while (source.firstChild) body.appendChild(source.firstChild);
-    source.remove();
+    const placeholder = document.createComment("Page content lives in its desktop window");
+    source.replaceWith(placeholder);
+    promotedContent = { source, placeholder, win };
 
     registerContentWindow(win);
     openWindowElement(win);
@@ -625,10 +637,34 @@
     const path = href.split("#")[0].split("?")[0];
     const id = contentWindowIdForPath(path);
     if (!id) return;
+    if (notebookLayout.matches) return;
 
     event.preventDefault();
     openContentWindowFromURL(id, path);
   });
 
   promoteOwnContent();
+
+  notebookLayout.addEventListener("change", event => {
+    if (event.matches) {
+      // Return the current page to normal flow when a desktop window
+      // becomes a notebook (rotation, split view, or browser resizing).
+      if (promotedContent) {
+        const { source, placeholder, win } = promotedContent;
+        const body = win.querySelector<HTMLElement>(".content-window__body")!;
+        while (body.firstChild) source.appendChild(body.firstChild);
+        placeholder.replaceWith(source);
+        contentWindows.delete(win.id);
+        win.remove();
+        promotedContent = undefined;
+      }
+      contentWindows.forEach(win => win.classList.remove("is-open"));
+      popups.forEach(closePopup);
+    } else {
+      document.querySelectorAll<HTMLElement>(".wm-drag").forEach(win => {
+        if (win.parentElement !== document.body) document.body.appendChild(win);
+      });
+      promoteOwnContent();
+    }
+  });
 </script>

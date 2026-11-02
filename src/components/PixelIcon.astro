@@ -1,0 +1,11 @@
+---
+interface Props {
+  name: string;
+  class?: string;
+}
+const { name, class: className } = Astro.props;
+---
+
+<span class:list={["newton-icon", className]} aria-hidden="true">
+  <i class={`fa-pixel fa-regular fa-${name}`}></i>
+</span>

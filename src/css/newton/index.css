@@ -1,0 +1,254 @@
+/* A touch-first notebook, inspired by Newton OS. Desktop rules stay intact. */
+@font-face {
+  font-family: "Isaac Espy Sans System";
+  src: url("/assets/fonts/isaac-espy-sans-system.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  /* The recreation's glyphs occupy roughly half of its em square. */
+  size-adjust: 200%;
+}
+
+.newton-header,
+.newton-page-heading,
+.newton-toolbar,
+#newton-extras { display: none; }
+
+@media (max-width: 1024px) {
+  :root {
+    --color-base: 74, 19%, 81%;
+    --color-dark: 76, 26%, 13%;
+    --color-light: 73, 23%, 88%;
+    --color-light-2: 73, 23%, 88%;
+    --color-mid: 74, 17%, 73%;
+    --color-mid-2: 76, 16%, 30%;
+    --color-selection: 76, 26%, 20%;
+    --color-scrollbar: 74, 17%, 57%;
+    --font-sans: "Isaac Espy Sans System", "Geneva", sans-serif;
+    --font-sans-alt: "Geneva", "Gill Sans", sans-serif;
+    --font-serif: Georgia, serif;
+    --font-serif-bold: Georgia, serif;
+    --newton-ink: hsl(var(--color-dark));
+    --newton-paper: hsl(var(--color-light));
+    --newton-line: hsl(var(--color-dark), .3);
+    --newton-image-filter: grayscale(1) sepia(.45) hue-rotate(25deg) saturate(.65);
+  }
+  /* One treatment for all raster/SVG image elements, including pictures,
+     article illustrations, portraits, and legacy image-based controls.
+     Override old component filters; do not also filter their containers. */
+  :root body img,
+  :root body .flex > img.avatar {
+    filter: var(--newton-image-filter) !important;
+    mix-blend-mode: multiply;
+  }
+  html { scroll-padding-top: 1rem; }
+  /* Use the same flat LCD treatment for page, drawer, and code scrollbars.
+     Keep the standard color fallback separate: non-auto scrollbar-color
+     overrides the detailed WebKit scrollbar styling in supporting browsers. */
+  :root::-webkit-scrollbar,
+  :root body *::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+  }
+  :root::-webkit-scrollbar-track,
+  :root body *::-webkit-scrollbar-track {
+    background: hsl(var(--color-base));
+    border: 1px solid var(--newton-line);
+  }
+  :root::-webkit-scrollbar-thumb,
+  :root body *::-webkit-scrollbar-thumb {
+    background: hsl(var(--color-mid-2));
+    background-clip: padding-box;
+    border: 3px solid transparent;
+    border-radius: 0;
+    box-shadow: none;
+    min-height: 40px;
+    min-width: 40px;
+  }
+  :root::-webkit-scrollbar-thumb:hover,
+  :root body *::-webkit-scrollbar-thumb:hover {
+    background-color: var(--newton-ink);
+  }
+  :root::-webkit-scrollbar-corner,
+  :root body *::-webkit-scrollbar-corner {
+    background: hsl(var(--color-base));
+  }
+  :root::-webkit-scrollbar-button,
+  :root body *::-webkit-scrollbar-button {
+    display: none;
+  }
+  @supports not selector(::-webkit-scrollbar) {
+    :root { scrollbar-color: hsl(var(--color-mid-2)) hsl(var(--color-base)); }
+  }
+  body {
+    background: hsl(var(--color-base));
+    color: var(--newton-ink);
+    height: auto;
+    min-height: 100dvh;
+    padding: env(safe-area-inset-top) 0 calc(88px + env(safe-area-inset-bottom));
+  }
+  body::after { display: none; }
+  /* These components have scoped display rules later in Astro's bundle. */
+  header.site__header, .media, .control-strip { display: none !important; }
+  .newton-header {
+    align-items: center;
+    border-bottom: 2px solid var(--newton-ink);
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 820px;
+    padding: 18px 20px 16px;
+  }
+  .newton-brand { align-items: center; color: inherit; display: flex; gap: 12px; font-weight: bold; font-size: 1rem; }
+  .newton-brand, .newton-page-heading, .newton-toolbar,
+  .newton-section-label, .newton-apps, .newton-folders, .newton-privacy {
+    font-family: var(--font-sans);
+  }
+  .newton-mark {
+    background-color: var(--newton-ink);
+    display: block;
+    flex-shrink: 0;
+    height: 44px;
+    width: 44px;
+    -webkit-mask: url("/assets/images/m-logo-white.webp") center / contain no-repeat;
+    mask: url("/assets/images/m-logo-white.webp") center / contain no-repeat;
+  }
+  .newton-brand small { display: block; font-size: .625rem; font-weight: normal; letter-spacing: .04em; margin-top: 5px; }
+  .newton-page-heading {
+    align-items: center;
+    display: flex;
+    gap: 9px;
+    margin: 0 auto;
+    max-width: 820px;
+    padding: 17px 20px 12px;
+    font-size: .875rem;
+    border-bottom: 1px solid var(--newton-line);
+  }
+  .newton-icon { align-items: center; display: inline-flex; flex-shrink: 0; height: 1em; justify-content: center; line-height: 1; width: 1em; }
+  .newton-folder { font-size: 17px; }
+  .newton-toolbar {
+    align-items: stretch;
+    background: hsl(var(--color-mid));
+    border-top: 2px solid var(--newton-ink);
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    left: 0;
+    padding: 6px max(8px, env(safe-area-inset-left)) calc(6px + env(safe-area-inset-bottom));
+    position: fixed;
+    width: 100%;
+    z-index: 2147483646;
+  }
+  .newton-toolbar :is(a, button) { align-items: center; background: transparent; border: 1px solid transparent; border-radius: 6px; color: inherit; cursor: pointer; display: flex; flex-direction: column; font: inherit; font-size: .875rem; gap: 5px; justify-content: center; min-height: 60px; padding: 6px; text-decoration: none; }
+  .newton-toolbar .newton-icon { font-size: 24px; height: 28px; width: 28px; }
+  .newton-toolbar [aria-current="page"] { background: var(--newton-paper); border-color: var(--newton-ink); box-shadow: inset 0 -2px 0 hsl(var(--color-dark), .15); }
+  .newton-toolbar :is(a, button):active { background: var(--newton-ink); color: var(--newton-paper); }
+  :is(.newton-toolbar, #newton-extras) :focus-visible { outline: 3px double currentColor; outline-offset: 2px; }
+
+  #newton-extras[open] { background: var(--newton-paper); border: 2px solid var(--newton-ink); border-radius: 12px 12px 0 0; color: var(--newton-ink); display: block; margin: auto auto 0; max-height: 85dvh; max-width: 820px; padding: 0 0 env(safe-area-inset-bottom); width: 100%; }
+  #newton-extras::backdrop { background: hsl(76, 26%, 8%, .45); }
+  .newton-drawer-heading { align-items: center; border-bottom: 2px solid; display: flex; justify-content: space-between; padding: 10px 16px; }
+  .newton-drawer-heading h2 { border: 0; box-shadow: none; font: bold 1.2rem var(--font-sans); margin: 0; padding: 0; }
+  .newton-drawer-heading button { background: transparent; border: 1px solid; border-radius: 50%; color: inherit; font: 28px/1 sans-serif; width: 44px; height: 44px; cursor: pointer; }
+  .newton-drawer-body { padding: 0 18px 24px; }
+  .newton-section-label { border-bottom: 1px solid var(--newton-line); font-size: .8rem; margin: 0 0 16px; padding: 16px 0 8px; }
+  .newton-apps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 8px; }
+  .newton-apps a { align-items: center; color: inherit; display: flex; flex-direction: column; gap: 6px; font-size: .73rem; min-height: 76px; padding: 6px 0; text-align: center; }
+  .newton-apps .newton-app-icon { font-size: 30px; height: 36px; width: 36px; }
+  .newton-apps .newton-external { font-size: .65rem; }
+  .newton-folders a { align-items: center; border-bottom: 1px solid var(--newton-line); color: inherit; display: flex; justify-content: space-between; min-height: 48px; }
+  .newton-privacy { color: inherit; display: inline-block; font-size: .8rem; padding: 20px 0 0; text-decoration: underline; }
+
+  /* Cancel desktop chrome and nested scrolling. Reading uses the page. */
+  body main, body #slug, body #slug__post, body #window-content {
+    animation: none;
+    columns: unset;
+    display: block;
+    margin: 0 auto;
+    max-width: 820px;
+    padding: 0;
+    width: 100%;
+  }
+  body .card__wrapper { animation: none; padding: 0; }
+  body .card, body .card.alt { background: transparent; border: 0; box-shadow: none; }
+  body .card__content { font-size: 1rem; max-height: none; overflow: visible; padding: 0; }
+  body .card__content article { background: transparent; border: 0; }
+  body .card__content article::before { display: none; }
+  body #window-content .card__header, body #hero-window .card__header { display: none; }
+  body #hero-window { height: auto; inset: auto !important; margin: 0 auto !important; max-height: none; max-width: 820px; position: relative; transform: none; width: 100% !important; }
+  body #hero-window.closing { opacity: 1; pointer-events: auto; }
+  body #hero-window article { display: flex; flex-direction: column; gap: 0; padding: 28px 24px; }
+  body #hero-window article .avatar { align-self: center; width: 148px !important; margin: 0 0 24px; }
+  body #hero-window article h1 { border-bottom: 0; box-shadow: none; display: block; font: bold clamp(1.9rem, 5vw, 2.8rem)/1.12 Georgia, serif; margin: 0 0 18px; padding: 0; }
+  body #hero-window article p { font-size: 1.05rem; line-height: 1.7; margin-bottom: 24px !important; }
+  body #hero-window .hero-actions { justify-content: flex-start; width: 100%; }
+  body .button { background: hsl(var(--color-base)); border: 1.5px solid var(--newton-ink); border-radius: 7px; box-shadow: 0 2px 0 var(--newton-ink); color: var(--newton-ink) !important; font-family: var(--font-sans); font-size: .9rem; min-height: 44px; padding: 10px 14px; }
+  body .button.primary { box-shadow: 0 2px 0 var(--newton-ink); }
+  body .button:active { box-shadow: none; transform: translateY(2px); }
+  body .post-list { max-width: none; }
+  body .post-row { border-bottom: 1px solid var(--newton-line); gap: 14px; padding: 22px 20px; }
+  body .post-row__thumb { border-radius: 3px; height: 64px; width: 64px; }
+  body .post-row__title { border: 0; box-shadow: none; font: bold 1.25rem/1.3 Georgia, serif; padding: 0; margin: 4px 0 8px; }
+  body .post-row__category { color: hsl(var(--color-mid-2)); letter-spacing: .08em; }
+  body .post-row__excerpt { color: var(--newton-ink); font-size: .92rem !important; line-height: 1.55; -webkit-line-clamp: 3; }
+  body .post-row__meta { justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  body .post-row__more { font-size: .8rem; }
+  body #content { background: transparent; overflow: visible; padding: 24px 20px; }
+  body #window-content .about .card__content { display: block; padding: 24px 20px; }
+  body #window-content .about .card__content h3 { font: bold 1.6rem/1.2 Georgia, serif; margin-bottom: 24px; overflow-wrap: anywhere; }
+  body #content :is(p, li) { font-size: 1rem; line-height: 1.75; }
+  body #content :is(h1, h2, h3) { font-family: Georgia, serif; }
+  body #content img { max-width: 100%; height: auto; box-shadow: none; }
+  body #content .button img {
+    display: block;
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    margin: 0;
+    align-self: center;
+  }
+  body #content pre { font-size: .8rem; max-width: 100%; overflow-x: auto; padding: 16px; }
+  body #content iframe { max-width: 100%; }
+  body #slug .card__content > article > header { border-bottom: 1px solid var(--newton-line); display: flex; flex-direction: column; margin: 0; width: 100%; }
+  body #slug .card__content > article > header > h1 { background: transparent; color: var(--newton-ink); display: block; font: bold clamp(1.9rem, 5vw, 3rem)/1.15 Georgia, serif; inset: auto; margin: 0 !important; padding: 24px 20px; pointer-events: auto; position: static; text-align: left; }
+  body #slug .hero-meta { font: normal .8rem var(--font-sans); margin-top: 16px; }
+  body #slug .hero-image { order: 1; }
+  body #slug .hero-image img { height: 200px; object-fit: cover; }
+  body #slug .hero-image svg { display: none; }
+  body .tags a { background: hsl(var(--color-base)) !important; border: 1px solid var(--newton-ink); color: var(--newton-ink) !important; min-height: 36px; padding: 10px 12px; text-shadow: none; }
+  body .share { justify-content: flex-start; }
+  body .share a { font-size: .8rem; }
+  /* Legacy popups are retained for incoming links, but behave as slips. */
+  body .popup:not(.is-open) { display: none; }
+  body .popup.is-open { background: var(--newton-paper); inset: 8vh 12px auto !important; margin: 0 auto !important; max-height: 75dvh; overflow: auto; width: calc(100% - 24px) !important; max-width: 800px; border: 2px solid var(--newton-ink); }
+  body .popup .card__header { background-image: none; }
+  body .popup .card__header .title { background: none; }
+  body .popup .card__content { padding: 20px; max-height: none; }
+  body .content-window__body { border: 0; margin: 0; outline: none; }
+}
+
+@media (max-width: 599px) {
+  /* Stacked link groups share the same edges as the reading column. */
+  body #content :is(.buttons, .share, .social) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  body #content :is(.buttons, .share, .social) > .button {
+    width: 100%;
+    justify-content: center;
+    margin-inline: 0;
+  }
+  /* Older posts float illustrations beside text; keep phone reading full-width. */
+  body #content img:not(.button img) { display: block; float: none !important; margin: 0 auto 24px !important; }
+}
+
+@media (min-width: 600px) and (max-width: 1024px) {
+  body #hero-window article { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 0 28px; padding: 40px 32px; }
+  body #hero-window article .avatar { grid-column: 1; grid-row: 1 / span 3; width: 180px !important; }
+  body #hero-window article :is(h1, p, .hero-actions) { grid-column: 2; }
+  body .post-row { padding: 24px 32px; }
+  body .post-row__thumb { height: 90px; width: 90px; }
+  body #content { padding: 32px; }
+}
