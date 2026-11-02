@@ -1,0 +1,91 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import { slugify, formatBlogPosts } from "../js/utils";
+import site from "../data/site.json";
+import "../css/newton/index.css";
+import PixelIcon from "./PixelIcon.astro";
+
+const { title = "Home" } = Astro.props;
+const path = Astro.url.pathname;
+const categories: string[] = [...new Set<string>(formatBlogPosts(await getCollection("blog")).map((post: CollectionEntry<"blog">) => post.data.category))].sort();
+const sections = [
+  { href: "/", label: "Home", icon: "house", active: path === "/" },
+  { href: "/blog/", label: "Journal", icon: "book", active: /^\/(blog|category|tags)(\/|$)/.test(path) },
+  { href: "/about/", label: "About", icon: "user", active: path === "/about/" },
+];
+const extras = [
+  { href: "/blog/", label: "All entries", icon: "book-open" },
+  { href: "/about/", label: "About Mack", icon: "user" },
+  { href: `mailto:${site.email}`, label: "Mail", icon: "envelope" },
+  { href: "https://hiremack.com", label: "Hire Mack", icon: "suitcase", external: true },
+  { href: "/holiday-cards/", label: "Holiday cards", icon: "gift", external: true },
+  { href: "https://theretrocult.com", label: "The RetroCult", icon: "gamepad", external: true },
+  { href: "https://rocketcomics.com", label: "Rocket Comics", icon: "rocket", external: true },
+  { href: site.linkedin, label: "LinkedIn", icon: "address-card", external: true },
+];
+const screenTitle = path === "/" ? "Personal notebook" : path === "/blog/" ? "Journal" : title;
+---
+
+<header class="newton-header">
+  <a href="/" class="newton-brand" aria-label="Mack Richardson home">
+    <span class="newton-mark" aria-hidden="true">m.</span>
+    <span>Mack Richardson<small>PERSONAL DIGITAL NOTEBOOK</small></span>
+  </a>
+  <span class="newton-status" aria-label="Newton-inspired mobile interface">N<PixelIcon name="battery-full" /></span>
+</header>
+<div class="newton-page-heading">
+  <PixelIcon name="folder" class="newton-folder" />
+  <span>{screenTitle}</span>
+</div>
+
+<nav class="newton-toolbar" aria-label="Notebook navigation">
+  {sections.map(section => (
+    <a href={section.href} aria-current={section.active ? "page" : undefined}>
+      <PixelIcon name={section.icon} />
+      <span>{section.label}</span>
+    </a>
+  ))}
+  <button type="button" id="newton-extras-toggle" aria-haspopup="dialog" aria-controls="newton-extras">
+    <PixelIcon name="grid" />
+    <span>Extras</span>
+  </button>
+</nav>
+
+<dialog id="newton-extras" aria-labelledby="newton-extras-title">
+  <header class="newton-drawer-heading">
+    <h2 id="newton-extras-title">Extras</h2>
+    <form method="dialog"><button aria-label="Close Extras" autofocus><PixelIcon name="xmark" /></button></form>
+  </header>
+  <div class="newton-drawer-body">
+    <p class="newton-section-label">Filed under: <strong>My notebook</strong></p>
+    <div class="newton-apps">
+      {extras.map(item => (
+        <a href={item.href} target={item.external ? "_blank" : undefined} rel={item.external ? "noopener" : undefined}>
+          <PixelIcon name={item.icon} class="newton-app-icon" />
+          <span>{item.label}{item.external && <> <PixelIcon name="arrow-up-right-from-square" class="newton-external" /></>}</span>
+        </a>
+      ))}
+    </div>
+    <p class="newton-section-label">Journal folders</p>
+    <div class="newton-folders">
+      {categories.map(category => <a href={`/category/${slugify(category)}/`}>{category}<PixelIcon name="angle-right" /></a>)}
+    </div>
+    <a class="newton-privacy" href="/privacy/">Privacy &amp; cookies</a>
+  </div>
+</dialog>
+
+<script>
+  const drawer = document.querySelector<HTMLDialogElement>("#newton-extras");
+  const toggle = document.querySelector<HTMLButtonElement>("#newton-extras-toggle");
+  toggle?.addEventListener("click", () => drawer?.showModal());
+  drawer?.addEventListener("click", event => {
+    if (event.target === drawer) {
+      const rect = drawer.getBoundingClientRect();
+      if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) drawer.close();
+    }
+  });
+  drawer?.querySelectorAll("a").forEach(link => link.addEventListener("click", () => drawer.close()));
+  window.matchMedia("(max-width: 1024px)").addEventListener("change", event => {
+    if (!event.matches) drawer?.close();
+  });
+</script>

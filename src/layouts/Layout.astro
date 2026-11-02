@@ -8,6 +8,7 @@ import WindowManager from "../components/WindowManager.astro";
 import About from "../components/Popup-About.astro";
 import CategoryList from "../components/CategoryPicker.astro";
 import Privacy from "../components/Popup-Privacy.astro";
+import NewtonShell from "../components/NewtonShell.astro";
 
 const { title, description, page, categorySlug, postURL } = Astro.props;
 const url = Astro.url.pathname;
@@ -30,6 +31,7 @@ const url = Astro.url.pathname;
 	<body class={categorySlug ?? ""}>
 		<Media />
 		<ControlStrip />
+		<NewtonShell title={title ?? "Home"} />
 		<slot />
 	</body><BaseEnd />
 

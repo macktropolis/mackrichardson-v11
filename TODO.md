@@ -1,16 +1,45 @@
 # TODO
 
-Working list for `interactive-gui` → launch-ready. Segmented by how soon it
-needs attention, not by size. Each item has a stable id (`#NN`) for
-reference — ids are never reused, even once an item is done or dropped.
+Working list for the Mack Richardson site. Current focus: the Newton-inspired
+phone/tablet interface on `newton-os-mobile`. The first implementation has
+not been merged or deployed to production. Items in Done describe implemented
+work; they do not imply that the Newton branch has shipped.
+
+Segmented by how soon work needs attention, not by size. Each item has a stable
+id (`#NN`) for reference — ids are never reused, even once an item is done or
+dropped.
 
 ## Next Up
 
-_(nothing pending)_
+- [ ] `#31` Finish visual review of the Newton theme with Mack: green-gray
+      palette, typography, portrait treatment, toolbar, Extras drawer, and
+      phone/tablet layouts. Preserve the chosen Newton-inspired direction
+      with modern readability and Font Awesome Pixel icons
+- [ ] `#32` Test on real iPhone/iPad and Android hardware: portrait and
+      landscape, browser chrome changes, safe-area spacing, long-page
+      scrolling, browser Back/Forward, and rotation across the 1024px breakpoint.
+      The checks completed so far are browser viewport checks, not a full
+      real-device pass
+- [ ] `#33` Complete accessibility review: keyboard navigation, screen-reader
+      labels, current-page indication, Extras focus trapping/return and
+      dismissal, color contrast, text zoom, and touch target sizes
+- [ ] `#34` Recheck desktop behavior before release: fresh page loads and
+      fetched windows, linked production stylesheets, popup controls, nav
+      dropdown highlighting, homepage button alignment, dragging, and
+      repeated transitions between notebook and desktop layouts
+- [ ] `#36` Release after review: run the production build and remaining
+      checks, commit and push `newton-os-mobile`, merge into `main` when
+      authorized, verify the published Netlify commit, and check both
+      interfaces on the live site. Confirm the Font Awesome kit works on
+      the production domain and update the README's development status
 
 ## Backlog
 
-_(nothing pending)_
+- [ ] `#35` Audit representative content in the notebook theme: category/tag
+      lists, long titles, code blocks, embedded media, older floated images,
+      article share controls, About links, and the privacy page. Confirm
+      narrow screens do not overflow horizontally or hide content behind
+      the toolbar; keep the standalone Holiday Cards archive's own theme
 
 ## Someday
 
@@ -20,6 +49,34 @@ _(nothing pending)_
 
 ## Done
 
+- [x] `#25` Kept parent top-nav items highlighted while hovering their
+      dropdown children by styling `li:hover > a` instead of only `a:hover`;
+      committed and deployed before the Newton branch
+- [x] `#26` Added the first Newton-inspired notebook shell at viewport widths
+      up to 1024px: green-gray colors, dark ink, modern readable text, a
+      notebook header, and a Home / Journal / About / Extras bottom toolbar.
+      Larger viewports retain the Mac OS desktop interface
+- [x] `#27` Implemented the Extras dialog with site/contact shortcuts,
+      categories drawn from published posts, privacy navigation, a close
+      button, outside-click dismissal, Escape, and native dialog focus
+      handling. Added `/privacy/` using the existing policy content
+- [x] `#28` Integrated Mack's Font Awesome kit (`c2df680238`) and added a
+      reusable `PixelIcon.astro` component using `fa-pixel fa-regular`.
+      Replaced the notebook's hand-drawn SVG, CSS folder, and text-symbol
+      icons with kit icons, including toolbar controls, Extras shortcuts,
+      folder/close controls, and external-link indicators. Verified the
+      icon names against the kit and rendering in the dev preview
+- [x] `#29` Adapted content and navigation to notebook mode: normal page
+      links and document scrolling, no desktop dragging on small screens,
+      journal/article styling, stacked floated illustrations on phones,
+      hidden desktop launchers and closed popups, and content restoration
+      when crossing the breakpoint. Moved the homepage content inside the
+      shared Layout's slot
+- [x] `#30` Passed Astro checks and the production build; checked phone Home,
+      Journal, article, and Extras views, tablet About, privacy navigation,
+      drawer Escape/focus return, and notebook/desktop breakpoint transitions
+      in the browser. Checked generated category links. Further device,
+      accessibility, content, and desktop checks remain above
 - [x] `#23` Fixed production-only bug where opening a blog post via the
       desktop UI (clicking a post link, handled by `WindowManager.astro`'s
       fetch-and-splice window navigation) lost all of that post's styling
