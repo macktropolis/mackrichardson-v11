@@ -36,13 +36,15 @@ The independent Holiday Cards archive keeps its Christmas theme.
 
 ## Newton mobile theme
 
-**Status:** first implementation on `newton-os-mobile`; review in
-progress. Not yet merged into `main` or deployed to production.
+**Status:** Newton theme approved for release on November 2, 2026.
+Development took place on `newton-os-mobile`; `main` is the production branch.
 
 This is a Newton-inspired interpretation with modern readability, rather
 than an exact recreation of the original operating system:
 
 - Green-gray screen colors, dark ink, monochrome controls, and readable text.
+- A shared green-gray wash on all notebook image elements, including article
+  illustrations, portraits, thumbnails, and image-based controls.
 - Home, Journal, About, and Extras in a fixed bottom toolbar, with safe-area
   spacing for devices with a home indicator.
 - An Extras dialog containing site shortcuts, contact links, published
@@ -77,6 +79,19 @@ technology; keep visible text or an accessible label on the control itself.
 The kit is loaded remotely, so icon delivery depends on Font Awesome and
 the kit's configuration. Desktop artwork remains in place.
 
+### Notebook typography
+
+The notebook interface uses the locally hosted **Isaac Espy Sans System**
+WOFF2 font for controls, navigation, folder labels, and interface headings.
+Article text retains the Geneva/Gill Sans stack and serif reading headings.
+Article tags also use Isaac Espy in both themes; other desktop font choices
+are unchanged.
+
+Isaac Espy Sans System was created by Patrick H. Lauke (redux) and is
+licensed under Creative Commons Attribution 3.0. See the
+[font attribution](public/assets/fonts/isaac-espy-sans-system-LICENSE.txt)
+and [original font page](https://fontstruct.com/fontstructions/show/626983/isaac_espy_sans_system).
+
 ### Verification and remaining work
 
 The implementation has passed `npm run build` and browser checks of the
@@ -86,7 +101,7 @@ transitions back to desktop windows. Category links were also checked
 against generated pages. Font Awesome Pixel icons were verified in the
 dev preview.
 
-Before release, finish visual review, test real phones and tablets, check
-accessibility and representative article formats, and run desktop regression
-checks. See [TODO.md](TODO.md) for tracked work and release steps.
+Visual review is approved. Follow-up work includes real phone/tablet testing,
+accessibility review, representative article formats, and broader desktop
+regression checks. See [TODO.md](TODO.md) for tracked work.
 

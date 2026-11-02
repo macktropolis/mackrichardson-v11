@@ -1,9 +1,9 @@
 # TODO
 
 Working list for the Mack Richardson site. Current focus: the Newton-inspired
-phone/tablet interface on `newton-os-mobile`. The first implementation has
-not been merged or deployed to production. Items in Done describe implemented
-work; they do not imply that the Newton branch has shipped.
+phone/tablet interface, developed on `newton-os-mobile` and approved for
+release on November 2, 2026. Follow-up device, accessibility, and regression
+checks remain tracked below.
 
 Segmented by how soon work needs attention, not by size. Each item has a stable
 id (`#NN`) for reference — ids are never reused, even once an item is done or
@@ -11,10 +11,6 @@ dropped.
 
 ## Next Up
 
-- [ ] `#31` Finish visual review of the Newton theme with Mack: green-gray
-      palette, typography, portrait treatment, toolbar, Extras drawer, and
-      phone/tablet layouts. Preserve the chosen Newton-inspired direction
-      with modern readability and Font Awesome Pixel icons
 - [ ] `#32` Test on real iPhone/iPad and Android hardware: portrait and
       landscape, browser chrome changes, safe-area spacing, long-page
       scrolling, browser Back/Forward, and rotation across the 1024px breakpoint.
@@ -48,6 +44,16 @@ Low priority, nice-to-have, no urgency:
 _(nothing pending)_
 
 ## Done
+
+- [x] `#31` Visual review of the Newton theme approved by Mack, including
+      typography, imagery, controls, toolbar, and Extras drawer
+- [x] `#37` Polished the Newton theme: tinted Mack logo, removed decorative
+      N/battery status, added matching scrollbars and the local Isaac Espy
+      font with attribution, applied the green-gray wash to all image
+      elements, corrected button icon alignment and equal-width phone
+      stacks, and made About headings bold. Article tags use dark Espy
+      labels without shadows; Doctor Who headings are left-aligned without
+      visible numbering, with their existing anchors preserved
 
 - [x] `#25` Kept parent top-nav items highlighted while hovering their
       dropdown children by styling `li:hover > a` instead of only `a:hover`;

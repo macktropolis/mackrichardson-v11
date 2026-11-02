@@ -22,9 +22,9 @@ Every so often the Doctor would have to regenerate into a new body, a cast chang
 
 I love classic _Doctor Who_. I love Logos. So let's have a look at how the logo regenerated with each new Doctor.
 
-<section class="listicle-item">
+<section class="listicle-item doctor-entry">
 
-  ### **1** William Hartnell _(1963-1965)_
+  <h3 id="1-william-hartnell-1963-1965">William Hartnell <em>(1963-1965)</em></h3>
   
   <img src="/assets/images/blog/2024-11-05-regeneration-of-a-logo/doctor_1.png" alt="The First Doctor — William Hartnell" class="secondary no-border" />
 
@@ -34,9 +34,9 @@ I love classic _Doctor Who_. I love Logos. So let's have a look at how the logo 
   
 </section>
 
-<section class="listicle-item">
+<section class="listicle-item doctor-entry">
 
-  ### **2** Patrick Troughton _(1966-1969)_
+  <h3 id="2-patrick-troughton-1966-1969">Patrick Troughton <em>(1966-1969)</em></h3>
   
   <img src="/assets/images/blog/2024-11-05-regeneration-of-a-logo/doctor_2.png" alt="The Second Doctor — Patrick Troughton" class="secondary no-border" />
   
@@ -46,9 +46,9 @@ I love classic _Doctor Who_. I love Logos. So let's have a look at how the logo 
   
 </section>
 
-<section class="listicle-item">
+<section class="listicle-item doctor-entry">
 
-  ### **3** Jon Pertwee _(1970-1974)_
+  <h3 id="3-jon-pertwee-1970-1974">Jon Pertwee <em>(1970-1974)</em></h3>
   
   <img src="/assets/images/blog/2024-11-05-regeneration-of-a-logo/doctor_3.png" alt="The Third Doctor — John Pertwee" class="secondary no-border" />
   
@@ -58,9 +58,9 @@ I love classic _Doctor Who_. I love Logos. So let's have a look at how the logo 
   
 </section>
 
-<section class="listicle-item">
+<section class="listicle-item doctor-entry">
 
-  ### **4** Tom Baker _(1974-1981)_
+  <h3 id="4-tom-baker-1974-1981">Tom Baker <em>(1974-1981)</em></h3>
   
   <img src="/assets/images/blog/2024-11-05-regeneration-of-a-logo/doctor_4.png" alt="The Fourth Doctor — Tom Baker" class="secondary no-border" />
   
@@ -70,9 +70,9 @@ I love classic _Doctor Who_. I love Logos. So let's have a look at how the logo 
   
 </section>
 
-<section class="listicle-item">
+<section class="listicle-item doctor-entry">
 
-  ### **5** Peter Davison _(1982-1984)_
+  <h3 id="5-peter-davison-1982-1984">Peter Davison <em>(1982-1984)</em></h3>
   
   <img src="/assets/images/blog/2024-11-05-regeneration-of-a-logo/doctor_5.png" alt="The Fifth Doctor — Peter Davison" class="secondary no-border" />
   
@@ -82,9 +82,9 @@ I love classic _Doctor Who_. I love Logos. So let's have a look at how the logo 
   
 </section>
 
-<section class="listicle-item">
+<section class="listicle-item doctor-entry">
 
-  ### **6** Colin Baker _(1984-1986)_
+  <h3 id="6-colin-baker-1984-1986">Colin Baker <em>(1984-1986)</em></h3>
   
   <img src="/assets/images/blog/2024-11-05-regeneration-of-a-logo/doctor_6.png" alt="The Sixth Doctor — Colin Baker" class="secondary no-border" />
 
@@ -94,9 +94,9 @@ I love classic _Doctor Who_. I love Logos. So let's have a look at how the logo 
   
 </section>
 
-<section class="listicle-item">
+<section class="listicle-item doctor-entry">
 
-  ### **7** Sylvester McCoy _(1987-1989)_
+  <h3 id="7-sylvester-mccoy-1987-1989">Sylvester McCoy <em>(1987-1989)</em></h3>
   
   <img src="/assets/images/blog/2024-11-05-regeneration-of-a-logo/doctor_7.png" alt="The Sixth Doctor — Sylvester McCoy" class="secondary no-border" />
 
@@ -106,9 +106,9 @@ I love classic _Doctor Who_. I love Logos. So let's have a look at how the logo 
   
 </section>
 
-<section class="listicle-item">
+<section class="listicle-item doctor-entry">
 
-  ### **8** Paul McGann _(1996)_
+  <h3 id="8-paul-mcgann-1996">Paul McGann <em>(1996)</em></h3>
     
   <img src="/assets/images/blog/2024-11-05-regeneration-of-a-logo/doctor_8.png" alt="The Eighth Doctor — Paul McGann" class="secondary no-border" />
 
@@ -127,6 +127,14 @@ Nine years after the failed American relaunch, _Doctor Who_ returned to the BBC 
 </section>
 
 <style>
+  #content .doctor-entry > h3 {
+    display: block;
+    text-align: left;
+  }
+  #content .doctor-entry > h3 > em {
+    display: inline-block;
+    margin: 0 0 0 0.5em;
+  }
   .listicle-item {
     border-bottom: none !important;
     margin-bottom: 1rem !important;
