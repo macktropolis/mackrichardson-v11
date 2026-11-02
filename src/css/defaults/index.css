@@ -67,12 +67,9 @@ a:where(.button) {
 ul,
 ol {
     font-size: clamp(1rem, 1.1rem, 1.2rem);
-    list-style-position: inside;
+    list-style-position: outside;
     margin: 2rem 0;
     max-width: 100%;
-}
-ol {
-    list-style-position: outside;
     padding-inline-start: 1.75em;
 }
 li {
