@@ -71,6 +71,10 @@ ol {
     margin: 2rem 0;
     max-width: 100%;
 }
+ol {
+    list-style-position: outside;
+    padding-inline-start: 1.75em;
+}
 li {
     margin-bottom: 1rem;
 }
