@@ -22,7 +22,7 @@ Classes
     width: 48px !important;
 }
 .footnote {
-    color: hsl(var(--color-dark), 0.5);
+    color: hsl(var(--color-dark), 1);
     font-size: x-small;
     margin: 2rem 0 0 0;
 }

@@ -21,6 +21,7 @@ const url = Astro.url.pathname;
 		description={description}
 		postURL={postURL}
 	/>
+	<body class={categorySlug ?? ""}>
 	<SiteHeader
 		title={title ?? "Mack Richardson"}
 		url={url}
@@ -28,22 +29,22 @@ const url = Astro.url.pathname;
 		description={description}
 	/>
 
-	<body class={categorySlug ?? ""}>
 		<Media />
 		<ControlStrip />
 		<NewtonShell title={title ?? "Home"} />
 		<slot />
-	</body><BaseEnd />
+	<BaseEnd />
 
-	<div id="popup1" class="popup">
+	<div id="popup1" class="popup" role="dialog" aria-label="About Mack Richardson" aria-hidden="true" inert>
 		<About />
 	</div>
-	<div id="popup3" class="popup">
+	<div id="popup3" class="popup" role="dialog" aria-label="Mackintosh HD" aria-hidden="true" inert>
 		<CategoryList />
 	</div>
-	<div id="popup4" class="popup">
+	<div id="popup4" class="popup" role="dialog" aria-label="Privacy Policy" aria-hidden="true" inert>
 		<Privacy />
 	</div>
 	<WindowManager />
+	</body>
 	<!-- <Snow /> -->
 </html>

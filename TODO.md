@@ -11,18 +11,16 @@ dropped.
 
 ## Next Up
 
-- [ ] `#32` Test on real iPhone/iPad and Android hardware: portrait and
-      landscape, browser chrome changes, safe-area spacing, long-page
-      scrolling, browser Back/Forward, and rotation across the 1024px breakpoint.
-      The checks completed so far are browser viewport checks, not a full
-      real-device pass
-- [ ] `#33` Complete accessibility review: keyboard navigation, screen-reader
-      labels, current-page indication, Extras focus trapping/return and
-      dismissal, color contrast, text zoom, and touch target sizes
-- [ ] `#34` Recheck desktop behavior before release: fresh page loads and
-      fetched windows, linked production stylesheets, popup controls, nav
-      dropdown highlighting, homepage button alignment, dragging, and
-      repeated transitions between notebook and desktop layouts
+- [ ] `#32` Finish targeted hardware scenarios. Mack reports iPhone and
+      Android working without UI problems and confirms the iPad desktop theme
+      is expected. Browser checks passed at 320–1280px, including breakpoint
+      cycles and mobile Back/Forward. Still unconfirmed on hardware: browser
+      chrome/safe areas, long-page history restoration, and breakpoint rotation
+- [ ] `#33` Finish manual accessibility checks: VoiceOver/TalkBack, 200%
+      text-only zoom, and complete touch-target measurements. Browser review
+      fixed keyboard dropdowns, hidden-window accessibility, close labels,
+      keyboard-accessible tags, Extras focus wrapping, and tag/footnote
+      contrast. See [review details](docs/qa-2026-11-02.md)
 
 ## Backlog
 
@@ -39,6 +37,12 @@ Low priority, nice-to-have, no urgency:
 _(nothing pending)_
 
 ## Done
+
+- [x] `#34` Completed the desktop production-build regression pass on November
+      2, 2026: fresh/direct/fetched pages, linked article styles, popup controls,
+      keyboard dropdowns and parent highlighting, homepage button centering,
+      dragging, and repeated Newton/desktop transitions. See
+      [review details and limits](docs/qa-2026-11-02.md)
 
 - [x] `#36` Production release approved by Mack on November 2, 2026:
       passed the production build, committed and pushed the Newton work,

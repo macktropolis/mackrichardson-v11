@@ -154,6 +154,7 @@
 
 <script>
   let topZ = 1000;
+  const windowOpeners = new WeakMap<HTMLElement, HTMLElement>();
   const notebookLayout = window.matchMedia("(max-width: 1024px)");
 
   // SiteHeader.astro's menu bar is a fixed 28px strip pinned to the top of
@@ -274,6 +275,7 @@
   }
 
   function openPopup(popup: HTMLElement) {
+    setWindowAccessible(popup, true);
     if (!popup.classList.contains("is-open")) {
       popup.classList.add("is-open");
       if (!popup.dataset.positioned) {
@@ -291,6 +293,7 @@
   function closePopup(popup: HTMLElement) {
     if (!popup.classList.contains("is-open")) return;
     popup.classList.remove("is-open");
+    setWindowAccessible(popup, false);
     announce(popup.id, false);
   }
 
@@ -378,6 +381,7 @@
   // navigates there, and handleHeroHash picks it up once that page loads.
   function openHeroWindow(hero: HTMLElement) {
     hero.classList.remove("closing");
+    setWindowAccessible(hero, true);
     bringToFront(hero);
   }
 
@@ -420,6 +424,21 @@
 
   const contentWindows = new Map<string, HTMLElement>();
 
+  function setWindowAccessible(win: HTMLElement, open: boolean) {
+    const active = document.activeElement;
+    if (open && win.hasAttribute("inert") && active instanceof HTMLElement && !win.contains(active)) {
+      windowOpeners.set(win, active);
+    }
+    if (!open && active instanceof HTMLElement && win.contains(active)) {
+      const opener = windowOpeners.get(win);
+      if (opener?.isConnected && !opener.closest("[inert]")) opener.focus();
+      else active.blur();
+    }
+    win.inert = !open;
+    if (open) win.removeAttribute("aria-hidden");
+    else win.setAttribute("aria-hidden", "true");
+  }
+
   function registerContentWindow(win: HTMLElement) {
     makeDraggable(win);
     const closeLink = win.querySelector<HTMLAnchorElement>(
@@ -428,12 +447,14 @@
     closeLink?.addEventListener("click", (event) => {
       event.preventDefault();
       win.classList.remove("is-open");
+      setWindowAccessible(win, false);
     });
     win.addEventListener("pointerdown", () => bringToFront(win));
     contentWindows.set(win.id, win);
   }
 
   function openWindowElement(win: HTMLElement) {
+    setWindowAccessible(win, true);
     if (!win.classList.contains("is-open")) {
       win.classList.add("is-open");
       if (!win.dataset.positioned) {
@@ -459,6 +480,9 @@
     const win = document.createElement("div");
     win.className = "popup content-window";
     win.id = id;
+    win.setAttribute("role", "dialog");
+    win.setAttribute("aria-label", titleText);
+    setWindowAccessible(win, false);
     win.innerHTML = `
       <div class="card alt featured">
         <header class="card__header">
@@ -658,7 +682,15 @@
         win.remove();
         promotedContent = undefined;
       }
-      contentWindows.forEach(win => win.classList.remove("is-open"));
+      contentWindows.forEach(win => {
+        win.classList.remove("is-open");
+        setWindowAccessible(win, false);
+      });
+      const hero = document.getElementById("hero-window");
+      if (hero) {
+        hero.classList.remove("closing");
+        setWindowAccessible(hero, true);
+      }
       popups.forEach(closePopup);
     } else {
       document.querySelectorAll<HTMLElement>(".wm-drag").forEach(win => {

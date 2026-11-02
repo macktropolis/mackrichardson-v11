@@ -13,34 +13,35 @@ const { author } = site;
 ---
 
 <header class="site__header">
+  <nav aria-label="Main navigation">
   <ul class="site__nav">
     <AppleMenu />
     <li><a href="/" title="Home">Home</a></li>
     <li>
-      <a href="#">Contact</a>
-      <ul class="submenu">
+      <button type="button" aria-expanded="false" aria-controls="contact-menu">Contact</button>
+      <ul id="contact-menu" class="submenu">
         <ContactLinks />
       </ul>
     </li><!-- end: Contact -->
     <li>
-      <a href="#">Share</a>
-      <ul class="submenu">
+      <button type="button" aria-expanded="false" aria-controls="share-menu">Share</button>
+      <ul id="share-menu" class="submenu">
         <SocialShare />
       </ul>
     </li><!-- end: Share -->
     <li>
-      <a href="#">Web Ring</a>
-      <ul class="submenu">
+      <button type="button" aria-expanded="false" aria-controls="web-ring-menu">Web Ring</button>
+      <ul id="web-ring-menu" class="submenu">
         <SpecialLinks />
       </ul>
     </li><!-- end: Web Ring -->
     <li>
-      <a href="#">Categories</a>
+      <button type="button" aria-expanded="false" aria-controls="categories-menu">Categories</button>
       <CategoryCloud />
     </li><!-- end: Files -->
     <li>
-      <a href="#">Help</a>
-      <ul class="submenu">
+      <button type="button" aria-expanded="false" aria-controls="help-menu">Help</button>
+      <ul id="help-menu" class="submenu">
         <li><a href="#popup4" title="">Privacy Policy</a></li>
         <li><hr /></li>
         <li class="info">
@@ -52,6 +53,7 @@ const { author } = site;
     </li><!-- end: Help -->
     <li id="site-clock" aria-live="off"></li>
   </ul>
+</nav>
 </header>
 
 <script is:inline>
@@ -79,7 +81,41 @@ const { author } = site;
   }
 </script>
 
+<script>
+  document.querySelectorAll<HTMLElement>(".site__nav > li").forEach(item => {
+    const trigger = item.querySelector<HTMLButtonElement>(":scope > button");
+    if (!trigger) return;
+    const setOpen = (open: boolean) => {
+      item.dataset.open = String(open);
+      trigger.setAttribute("aria-expanded", String(open));
+    };
+    setOpen(false);
+    item.addEventListener("pointerenter", () => setOpen(true));
+    item.addEventListener("pointerleave", () => {
+      if (!item.contains(document.activeElement)) setOpen(false);
+    });
+    trigger.addEventListener("click", event => setOpen(event.detail > 0 || item.dataset.open !== "true"));
+    item.addEventListener("focusout", event => {
+      if (!(event.relatedTarget instanceof Node) || !item.contains(event.relatedTarget)) setOpen(false);
+    });
+    item.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        trigger.focus();
+        event.preventDefault();
+      } else if (event.key === "ArrowDown" && event.target === trigger) {
+        setOpen(true);
+        item.querySelector<HTMLAnchorElement>(".submenu a")?.focus();
+        event.preventDefault();
+      }
+    });
+  });
+</script>
+
 <style is:global>
+  .site__header > nav { width: 100%; height: 100%; }
+  .site__nav button { background: none; border: 0; border-radius: 0; font: inherit; }
+
   img.filter-green {
     filter: grayscale(100%) brightness(80%) sepia(300%) hue-rotate(75deg)
       saturate(800%);
@@ -129,7 +165,7 @@ const { author } = site;
     margin: 0;
     padding: 0;
   }
-  .site__nav a {
+  .site__nav :is(a, button) {
     color: hsl(var(--color-dark), 1);
     align-items: center;
     display: flex;
@@ -140,9 +176,10 @@ const { author } = site;
     text-decoration: none;
     width: 100%;
   }
-  .site__nav li:hover > a,
+  .site__nav li:hover > :is(a, button),
+  .site__nav li[data-open="true"] > button,
   .site__nav a:active,
-  .site__nav a:focus {
+  .site__nav :is(a, button):focus-visible {
     background-color: hsl(var(--color-selection), 1);
     color: hsl(var(--color-light), 1);
     cursor: pointer;
@@ -177,7 +214,8 @@ const { author } = site;
     left: 0;
     max-width: 50ch;
   }
-  .site__nav li:hover .submenu {
+  .site__nav li[data-open="true"] > .submenu,
+  .site__nav li:not([data-open]):is(:hover, :focus-within) > .submenu {
     visibility: visible;
   }
   .site__nav .submenu li {

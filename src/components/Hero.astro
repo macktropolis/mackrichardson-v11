@@ -174,5 +174,7 @@ const headerTitle = "MackOS";
     if (!wrapper) return;
 
     wrapper.classList.add("closing");
+    wrapper.setAttribute("inert", "");
+    wrapper.setAttribute("aria-hidden", "true");
   });
 </script>

@@ -83,6 +83,21 @@ const screenTitle = path === "/" ? "Personal notebook" : path === "/blog/" ? "Jo
       if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) drawer.close();
     }
   });
+  // Keep keyboard focus in the drawer even when browser chrome participates
+  // in the native dialog's sequential focus order.
+  drawer?.addEventListener("keydown", event => {
+    if (event.key !== "Tab") return;
+    const controls = Array.from(drawer.querySelectorAll<HTMLElement>("a[href], button:not([disabled])"));
+    const first = controls[0];
+    const last = controls[controls.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last?.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first?.focus();
+    }
+  });
   drawer?.querySelectorAll("a").forEach(link => link.addEventListener("click", () => drawer.close()));
   window.matchMedia("(max-width: 1024px)").addEventListener("change", event => {
     if (!event.matches) drawer?.close();
