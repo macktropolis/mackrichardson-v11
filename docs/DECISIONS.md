@@ -49,3 +49,12 @@ Entries are chronological. Preserve superseded entries and link their replacemen
 - **Alternatives considered** — Unknown.
 - **Consequences** — Update the handoff at meaningful milestones and recheck Git state each session. Local documentation edits only travel after publication.
 - **References** — [AGENTS.md](../AGENTS.md), [current state](CURRENT-STATE.md).
+
+## DEC-005: Run startup in place on first entry
+
+- **Date** — 2026-11-11
+- **Status** — Accepted
+- **Category** — UI/UX
+- **Decision** — Show the MackOS 9 startup in the shared layout, then dismiss it on the requested page. A local storage flag controls first-visit playback. Keep Holiday Cards independent, and use a dev-only route for repeatable preview.
+- **Rationale** — In-place playback preserves deep links and lets the standalone archive open directly. The preview supports visual iteration without changing first-visit state.
+- **References** — [Architecture](ARCHITECTURE.md), [startup script](../public/assets/js/mac-startup.js).

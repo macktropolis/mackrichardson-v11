@@ -22,9 +22,13 @@ Hero images are referenced relative to the post and processed by Astro. Body ima
 
 ## Browser interaction
 
+The shared layout loads the [startup script](../public/assets/js/mac-startup.js) and [stylesheet](../public/assets/css/mac-startup.css). A native modal covers the requested page on first entry and closes in place. An origin-wide local storage flag suppresses later runs. Visitors with reduced motion enabled or unavailable storage go directly to the page.
+
+The dev-only `/startup/` route loads the same startup assets in a standalone preview. It plays on entry and on demand without accessing the first-visit flag. Static production builds omit the preview.
+
 - **Up to 1024px**, [NewtonShell.astro](../src/components/NewtonShell.astro) presents a notebook with normal page navigation and scrolling. Extras uses a native modal dialog and links to the standalone Privacy page.
 - **Above 1024px**, [WindowManager.astro](../src/components/WindowManager.astro) manages draggable desktop windows. It fetches supported internal pages, extracts their window content, and waits for linked production stylesheets before opening the window. Failed loads fall back to page navigation. Resizing across the breakpoint restores the current page content to the appropriate layout.
-- [Holiday Cards](../src/pages/holiday-cards/index.html) is independent HTML with its own Christmas theme and lightbox.
+- [Holiday Cards](../src/pages/holiday-cards/index.html) is independent HTML with its own Christmas theme and lightbox. Visits there leave the main site's startup flag untouched.
 
 The window loader inserts fetched site markup into the DOM. Preserve the trusted site-content boundary when editing it. [BaseHead.astro](../src/components/BaseHead.astro) loads the remote Font Awesome kit used by Newton's decorative pixel icons. [GoogleAnalytics.astro](../src/components/GoogleAnalytics.astro) integrates Google Analytics, which the shared [privacy content](../src/components/Popup-Privacy.astro) discloses.
 

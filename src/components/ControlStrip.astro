@@ -1,6 +1,12 @@
 ---
-// Mac OS 9 Control Strip: a compact, collapsible sitewide launcher for the
-// window popups, plus a real link to the blog. Items with a `popup` id
+// library imports
+import { getCollection, type CollectionEntry } from "astro:content";
+
+// utils imports
+import { formatBlogPosts, slugify } from "../js/utils";
+
+// Mac OS 9 Control Strip: a compact, collapsible sitewide launcher for
+// windows, the blog, and its published categories. Items with a `popup` id
 // reuse the exact href="#popup1".."#popup4" convention WindowManager.astro
 // already listens for -- these are the same links used elsewhere (the Help
 // menu's Privacy Policy link, the media sidebar icons), just restyled as
@@ -13,23 +19,21 @@
 // always ensures the window is open, so it has no `popup` id to sync an
 // active state against.
 //
-// Alphabetized by title.
-const items = [
+const posts: CollectionEntry<"blog">[] = formatBlogPosts(await getCollection("blog"));
+const categories = [...new Set(posts.map((post) => post.data.category))]
+  .sort((a, b) => a.localeCompare(b));
+
+const items: {
+  href: string;
+  title: string;
+  popup?: string;
+  icon?: string;
+  categoryIcon?: string;
+}[] = [
   {
     href: "/#hero-window",
     title: "About Mack",
     icon: "/assets/images/mack-headshot-8bit-color-small.png",
-  },
-  {
-    href: "/blog/",
-    title: "Blog",
-    icon: "/assets/images/book-red.png",
-  },
-  {
-    href: "/holiday-cards/",
-    target: "_blank",
-    title: "Holiday Cards",
-    icon: "/assets/images/christmas-tree.png",
   },
   {
     popup: "popup3",
@@ -37,22 +41,32 @@ const items = [
     title: "Mackintosh HD",
     icon: "/assets/images/hard-drive.png",
   },
+  {
+    href: "/blog/",
+    title: "Blog",
+    icon: "/assets/images/book-red.png",
+  },
+  ...categories.map((title) => {
+    const slug = slugify(title);
+    return { href: `/category/${slug}/`, title, categoryIcon: slug };
+  }),
 ];
 ---
 
 <nav class="control-strip" aria-label="Control Strip">
-  <div class="control-strip__items">
+  <div id="control-strip-items" class="control-strip__items">
     {
       items.map((item) => (
         <a
           href={item.href}
           class="control-strip__item"
           data-popup={item.popup}
-          target={item.target}
+          aria-label={item.title}
           title={item.title}
         >
-          <img src={item.icon} alt="" />
-          <span class="control-strip__label">{item.title}</span>
+          {item.icon
+            ? <img src={item.icon} alt="" />
+            : <span class:list={["control-strip__category-icon", "icon", item.categoryIcon]} aria-hidden="true"></span>}
         </a>
       ))
     }
@@ -61,6 +75,7 @@ const items = [
     type="button"
     class="control-strip__tab"
     aria-label="Collapse Control Strip"
+    aria-controls="control-strip-items"
     aria-expanded="true">
     <span class="control-strip__tab-arrow" aria-hidden="true"></span>
   </button>
@@ -79,6 +94,7 @@ const items = [
       2px 2px 6px hsl(var(--color-dark), 0.35);
     display: flex;
     left: 0;
+    max-width: 100%;
     position: fixed;
     z-index: 999999;
   }
@@ -89,6 +105,7 @@ const items = [
     border: none;
     cursor: pointer;
     display: flex;
+    flex: 0 0 auto;
     justify-content: center;
     padding: 0;
   }
@@ -107,21 +124,22 @@ const items = [
   }
   .control-strip__items {
     display: flex;
-    overflow: hidden;
+    overflow: auto hidden;
     transition:
       width 0.25s ease,
       opacity 0.2s ease;
   }
   .control-strip.collapsed .control-strip__items {
     opacity: 0;
+    overflow: hidden;
     width: 0;
   }
   .control-strip__item {
     align-items: center;
     border-right: 1px solid hsl(var(--color-dark), 0.2);
     display: flex;
+    flex: 0 0 auto;
     flex-direction: column;
-    gap: 4px;
     justify-content: center;
     padding: 8px 10px;
     text-decoration: none;
@@ -132,12 +150,10 @@ const items = [
     height: auto;
     width: 36px;
   }
-  .control-strip__label {
-    color: hsl(var(--color-dark), 1);
-    font-family: var(--font-sans);
-    font-size: 0.65rem;
-    line-height: 1.15;
-    text-align: center;
+  .control-strip__category-icon {
+    background-size: contain;
+    width: 36px;
+    height: 36px;
   }
   @media (max-width: 420px) {
     .control-strip__item {
@@ -147,26 +163,23 @@ const items = [
     .control-strip__item img {
       width: 26px;
     }
-    .control-strip__label {
-      font-size: 0.55rem;
-    }
   }
   .control-strip__item.active {
     background-color: hsl(var(--color-selection), 1);
     box-shadow: inset 1px 1px 3px hsla(0, 0%, 0%, 0.6);
-  }
-  .control-strip__item.active .control-strip__label {
-    color: hsl(var(--color-light), 1);
   }
 </style>
 
 <script>
   const strip = document.querySelector<HTMLElement>(".control-strip");
   const tab = strip?.querySelector<HTMLElement>(".control-strip__tab");
+  const modules = strip?.querySelector<HTMLElement>(".control-strip__items");
 
   tab?.addEventListener("click", () => {
     const collapsed = strip!.classList.toggle("collapsed");
     tab.setAttribute("aria-expanded", String(!collapsed));
+    tab.setAttribute("aria-label", collapsed ? "Expand Control Strip" : "Collapse Control Strip");
+    modules!.inert = collapsed;
   });
 
   const items = new Map<string, HTMLElement>();

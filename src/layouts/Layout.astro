@@ -22,6 +22,7 @@ const url = Astro.url.pathname;
 		postURL={postURL}
 	/>
 	<body class={categorySlug ?? ""}>
+	<script is:inline src="/assets/js/mac-startup.js"></script>
 	<SiteHeader
 		title={title ?? "Mack Richardson"}
 		url={url}

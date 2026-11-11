@@ -9,11 +9,7 @@ body {
     width: 100%;
 }
 body::after {
-    background: linear-gradient(
-        65deg, 
-        hsl(var(--gradient-color), 1) 0%, 
-        hsl(var(--gradient-color-2), 1) 50%, 
-        hsl(var(--gradient-color-3, 1)) 100%);
+    background: var(--site-background);
     /* background: var(--wallpaper-christmas) no-repeat center center fixed; */
     background-size: cover;
     content: '';

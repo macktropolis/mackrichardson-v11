@@ -16,7 +16,7 @@
 
 @media (max-width: 1024px) {
   :root {
-    --color-base: 74, 19%, 81%;
+    --color-base: var(--newton-base);
     --color-dark: 76, 26%, 13%;
     --color-light: 73, 23%, 88%;
     --color-light-2: 73, 23%, 88%;
@@ -81,7 +81,7 @@
     :root { scrollbar-color: hsl(var(--color-mid-2)) hsl(var(--color-base)); }
   }
   body {
-    background: hsl(var(--color-base));
+    background: var(--site-background);
     color: var(--newton-ink);
     height: auto;
     min-height: 100dvh;

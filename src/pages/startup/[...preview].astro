@@ -1,0 +1,49 @@
+---
+import "../../css/variables/index.css";
+import "../../css/fonts/index.css";
+import "../../css/components/index.css";
+
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: { preview: undefined } }] : [];
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mac OS 9 Startup Preview</title>
+    <link rel="stylesheet" href="/assets/css/mac-startup.css" />
+  </head>
+  <body class="mac-startup-preview">
+    <main>
+      <h1>Mac OS 9 Startup Preview</h1>
+      <button type="button" id="replay-startup" autofocus>Replay startup</button>
+    </main>
+    <script is:inline src="/assets/js/mac-startup.js" data-startup-preview></script>
+  </body>
+</html>
+
+<style>
+  body {
+    display: grid;
+    min-height: 100vh;
+    margin: 0;
+    place-items: center;
+    color: #111;
+    font: 16px Geneva, Verdana, sans-serif;
+    text-align: center;
+  }
+
+  main {
+    padding: 1rem;
+  }
+
+  button {
+    min-height: 44px;
+    padding: 4px 14px;
+    font: inherit;
+    cursor: pointer;
+  }
+</style>

@@ -14,6 +14,13 @@
     --gradient-color: 220, 92%, 75%;
     --gradient-color-2: 214, 91%, 74%;
     --gradient-color-3: 246, 97%, 85%;
+    --site-background: linear-gradient(
+        65deg,
+        hsl(var(--gradient-color)) 0%,
+        hsl(var(--gradient-color-2)) 50%,
+        hsl(var(--gradient-color-3)) 100%
+    );
+    --newton-base: 74, 19%, 81%;
 
     --font-sans: 'checkbox', sans-serif;
     --font-sans-alt: 'Geneva', 'Gill Sans', sans-serif;
@@ -22,4 +29,10 @@
     --font-mono: monospace;
     
     --wallpaper-christmas: url('/assets/images/holiday-cards/alpine.jpg');
+}
+
+@media (max-width: 1024px) {
+    :root {
+        --site-background: hsl(var(--newton-base));
+    }
 }
