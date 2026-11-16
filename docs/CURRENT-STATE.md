@@ -2,23 +2,26 @@
 
 ## Git Snapshot
 
-Local checkout inspected on 2026-11-11 at 10:41:51 EST (America/New_York), before staging the startup and Control Strip release.
+Local checkout inspected on 2026-11-16 at 11:12:47 EST (America/New_York), after the storage reorganization and before committing this handoff.
 
-- **Branch and HEAD** — `main` at `4354e056c2007b4681a81d96b1609258598411af`.
-- **Upstream** — The cached `origin/main` was 0 ahead and 0 behind at capture. A fresh GitHub API check confirmed live `main` at the same commit.
-- **Working tree at capture** — Nothing staged. The shared head, layout, Control Strip, CSS defaults, Newton CSS, CSS variables, architecture, and handoff were modified. The startup script, stylesheet, logo, and preview route were untracked. The decision log was updated after this snapshot.
+- **Branch and HEAD** — `main` at `498d3020853d7df5b1786e3d70f78dc8ae6987ec`.
+- **Upstream** — The cached `origin/main` was 0 ahead and 0 behind. A fresh GitHub API check confirmed live `main` at the same commit.
+- **Working tree at capture** — `docs/CURRENT-STATE.md` was the only unstaged modification. No staged or untracked files.
+- **Local checkout on this Mac** — `/Volumes/Colossus/Clients/Mack Richardson/Websites/mackrichardson_com`. The checkout retains the GitHub remote `macktropolis/mackrichardson-v11`. The directory move itself produced no tracked changes.
 
 ## Last Known Working State
 
 The [November 2 QA record](qa-2026-11-02.md) reports a passing production build and production-preview checks for direct and fetched desktop navigation, article styles, window dragging and closing, keyboard dropdowns, Extras focus, mobile history, and breakpoint transitions. Mack reported general iPhone and Android checks and accepted the iPad desktop presentation.
 
-For the startup change, Astro checks, the static build, and Pagefind completed locally using bundled Node 24. After excluding Holiday Cards, the static build and headless Chrome checks passed again. Checks covered desktop deep links with a query and fragment, automatic completion, repeat visits, a mobile visit to Holiday Cards followed by first entry to the main site, Skip, Escape, reduced motion, blocked storage, and disabled JavaScript. Safari and physical devices have yet to be checked. The live deployment was not checked.
+For release `498d302`, Astro checks passed with zero errors, and the static build and Pagefind indexed 31 pages using bundled Node 24. Headless Chrome tests against the build covered desktop deep links with a query and fragment, automatic completion, repeat visits, a mobile visit to Holiday Cards followed by first entry to the main site, Continue, Escape, reduced motion, blocked storage, and disabled JavaScript. The command-strip checks covered the launcher order, category links, fetched and direct desktop navigation, collapse and expand, and Newton's category links in Extras.
+
+Netlify published [production deploy `6af48cf6647a97628c05ec3b`](https://app.netlify.com/projects/mackos9/deploys/6af48cf6647a97628c05ec3b) on November 11 at 10:43:19 EST. The Netlify API still reported that deploy as current and ready at the November 11 handoff, with the exact release SHA above. The release smoke check verified that the public homepage served the updated Control Strip and that the public startup script matched the local file byte-for-byte. Browser interaction tests were run locally against the build.
 
 ## Completed Work
 
 - The Newton notebook merged into `main` in `2fa5324`. Navigation accessibility fixes and the desktop regression record landed in `df1c41d`.
 - The checkout was fast-forwarded to GitHub and the local handoff revision was preserved.
-- Added a first-visit Mac OS 9 startup dialog on the main site. It closes after about 2.6 seconds, or immediately via Skip or Escape, and keeps the original page URL. The standalone Holiday Cards archive leaves the startup flag, `mackos-startup-seen`, untouched.
+- Added a first-visit Mac OS 9 startup dialog on the main site. It closes after about 2.6 seconds, or immediately via **Continue...** or Escape, and keeps the original page URL. The standalone Holiday Cards archive leaves the startup flag, `mackos-startup-seen`, untouched.
 - Added the dev-only `/startup/` preview with a Replay button. Headless Chrome verified automatic playback, replay, and first-visit storage isolation. The production build and Pagefind passed, and the preview was absent from the build output.
 - Matched the startup dialog and preview backgrounds to the site's desktop gradient and Newton background. Chrome verified the computed backgrounds at 1024px and 1025px.
 - Styled the startup window after the Mac OS 9.2 reference, using the supplied blue M logo, the existing Advercase Regular font for the MackOS 9 title, and a beveled purple progress bar. Chrome verified the logo and font loaded on the preview at phone and desktop widths.
@@ -27,12 +30,12 @@ For the startup change, Astro checks, the static build, and Pagefind completed l
 
 ## In Progress and Untested Changes
 
-Safari and physical-device verification remain open.
+No implementation work is in progress. Safari and physical-device checks for the released startup and Control Strip remain open, along with the existing manual accessibility and notebook content checks.
 
 ## Known Issues
 
 - The [tag route](../src/pages/tags/%5Btag%5D.astro) calls `post.data.tags.includes()` even though the content schema allows omitted tags. The mismatch is confirmed in source. A build with a tagless published post was not run.
-- Local [CLAUDE.md](../CLAUDE.md) still describes four shared popups and a homepage post list. The shared layout has three popups, and the homepage renders the introduction. Holiday Cards is standalone. Use the [current architecture on GitHub](https://github.com/macktropolis/mackrichardson-v11/blob/4354e056c2007b4681a81d96b1609258598411af/docs/ARCHITECTURE.md).
+- [CLAUDE.md](../CLAUDE.md) still describes four shared popups and a homepage post list. The shared layout has three popups, and the homepage renders the introduction. Holiday Cards is standalone. Use the [current architecture](ARCHITECTURE.md).
 
 ## Prioritized Next Steps
 
