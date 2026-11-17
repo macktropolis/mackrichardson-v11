@@ -97,3 +97,84 @@
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
 }
+
+.mac-startup__welcome {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .mac-startup[open] {
+    color: var(--newton-ink);
+    font-family: var(--font-sans);
+    padding: max(16px, env(safe-area-inset-top))
+      max(16px, env(safe-area-inset-right))
+      max(16px, env(safe-area-inset-bottom))
+      max(16px, env(safe-area-inset-left));
+  }
+
+  .mac-startup__screen {
+    width: min(100%, 360px);
+    border: 2px solid var(--newton-ink);
+    background: var(--newton-paper);
+  }
+
+  .mac-startup__panel {
+    padding: 0 0 16px;
+    border: 0;
+    border-bottom: 1px solid var(--newton-ink);
+    background: transparent;
+  }
+
+  :root body .mac-startup__panel img {
+    width: min(42%, 112px);
+    filter: var(--newton-image-filter) !important;
+    mix-blend-mode: multiply;
+  }
+
+  #mac-startup-title {
+    margin: 8px 0 0;
+    color: inherit;
+    font: inherit;
+    letter-spacing: normal;
+  }
+
+  .mac-startup__welcome {
+    display: block;
+    font-size: 1.75rem;
+  }
+
+  .mac-startup__status {
+    margin-top: 16px;
+    font: inherit;
+  }
+
+  .mac-startup__track {
+    height: 10px;
+    border-color: var(--newton-ink);
+    background: hsl(var(--color-base));
+    box-shadow: none;
+  }
+
+  .mac-startup__progress {
+    background: var(--newton-ink);
+    box-shadow: none;
+  }
+
+  .mac-startup form {
+    margin-top: 16px;
+  }
+
+  body .mac-startup .button.primary {
+    border: 1px solid var(--newton-ink);
+    border-radius: 4px;
+    background: hsl(var(--color-base));
+    color: var(--newton-ink) !important;
+    font: inherit;
+    box-shadow: 0 2px 0 var(--newton-ink);
+  }
+
+  body .mac-startup .button:focus-visible {
+    outline: 2px solid var(--newton-ink);
+    outline-offset: 3px;
+  }
+}

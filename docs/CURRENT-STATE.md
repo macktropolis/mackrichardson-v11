@@ -2,12 +2,11 @@
 
 ## Git Snapshot
 
-Local checkout inspected on 2026-11-16 at 11:12:47 EST (America/New_York), after the storage reorganization and before committing this handoff.
+Local checkout inspected on 2026-11-17 at 08:59:10 EST (America/New_York), after implementation and before updating the handoff documents.
 
-- **Branch and HEAD** — `main` at `498d3020853d7df5b1786e3d70f78dc8ae6987ec`.
-- **Upstream** — The cached `origin/main` was 0 ahead and 0 behind. A fresh GitHub API check confirmed live `main` at the same commit.
-- **Working tree at capture** — `docs/CURRENT-STATE.md` was the only unstaged modification. No staged or untracked files.
-- **Local checkout on this Mac** — `/Volumes/Colossus/Clients/Mack Richardson/Websites/mackrichardson_com`. The checkout retains the GitHub remote `macktropolis/mackrichardson-v11`. The directory move itself produced no tracked changes.
+- **Branch and HEAD** — `main` at `3846e19bfdf3c4b9947276908255d1120a9cf0b4`.
+- **Upstream** — Matched cached `origin/main`, last confirmed by the earlier fast-forward from GitHub. Live GitHub was not rechecked during implementation.
+- **Working tree at capture** — Unstaged changes to `public/assets/css/mac-startup.css`, `public/assets/js/mac-startup.js`, and `src/pages/startup/[...preview].astro`. No staged or untracked files. Architecture, decision, and handoff updates followed this snapshot.
 
 ## Last Known Working State
 
@@ -19,6 +18,8 @@ Netlify published [production deploy `6af48cf6647a97628c05ec3b`](https://app.net
 
 ## Completed Work
 
+- Added a first-visit Newton Welcome panel through 1024px using the existing logo, MackOS 9 title, status text, progress indicator, and Continue control. The same local storage flag covers both themes.
+- `npm run build` passed on Node 22. Headless Chrome checked the built site at 320px, 1024px, and 1025px, including theme styling, horizontal fit, Continue, automatic dismissal, Escape, fragment preservation, and repeat visits. The dev-only preview played and replayed at 390px without writing the first-visit flag.
 - The Newton notebook merged into `main` in `2fa5324`. Navigation accessibility fixes and the desktop regression record landed in `df1c41d`.
 - The checkout was fast-forwarded to GitHub and the local handoff revision was preserved.
 - Added a first-visit Mac OS 9 startup dialog on the main site. It closes after about 2.6 seconds, or immediately via **Continue...** or Escape, and keeps the original page URL. The standalone Holiday Cards archive leaves the startup flag, `mackos-startup-seen`, untouched.
@@ -30,7 +31,7 @@ Netlify published [production deploy `6af48cf6647a97628c05ec3b`](https://app.net
 
 ## In Progress and Untested Changes
 
-No implementation work is in progress. Safari and physical-device checks for the released startup and Control Strip remain open, along with the existing manual accessibility and notebook content checks.
+Safari and physical-device checks for startup and the Control Strip remain open, along with the existing manual accessibility and notebook content checks.
 
 ## Known Issues
 

@@ -23,7 +23,10 @@
       <div class="mac-startup__screen">
         <div class="mac-startup__panel">
           <img src="/assets/images/mackos-startup-logo.png" width="228" height="228" alt="">
-          <p id="mac-startup-title">MackOS 9</p>
+          <div id="mac-startup-title">
+            <span class="mac-startup__welcome">Welcome</span>
+            <span>MackOS 9</span>
+          </div>
         </div>
         <p class="mac-startup__status">Starting Up…</p>
         <div class="mac-startup__track" aria-hidden="true">

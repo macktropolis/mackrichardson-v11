@@ -22,7 +22,7 @@ Hero images are referenced relative to the post and processed by Astro. Body ima
 
 ## Browser interaction
 
-The shared layout loads the [startup script](../public/assets/js/mac-startup.js) and [stylesheet](../public/assets/css/mac-startup.css). A native modal covers the requested page on first entry and closes in place. An origin-wide local storage flag suppresses later runs. Visitors with reduced motion enabled or unavailable storage go directly to the page.
+The shared layout loads the [startup script](../public/assets/js/mac-startup.js) and [stylesheet](../public/assets/css/mac-startup.css). A native modal covers the requested page on first entry and closes in place. It uses the Newton Welcome presentation through 1024px and the Mac OS 9 presentation above 1024px. Both use the same startup content and controls. An origin-wide local storage flag suppresses later runs. Visitors with reduced motion enabled or unavailable storage go directly to the page.
 
 The dev-only `/startup/` route loads the same startup assets in a standalone preview. It plays on entry and on demand without accessing the first-visit flag. Static production builds omit the preview.
 

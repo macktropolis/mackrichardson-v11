@@ -2,6 +2,7 @@
 import "../../css/variables/index.css";
 import "../../css/fonts/index.css";
 import "../../css/components/index.css";
+import "../../css/newton/index.css";
 
 export function getStaticPaths() {
   return import.meta.env.DEV ? [{ params: { preview: undefined } }] : [];
@@ -13,12 +14,12 @@ export function getStaticPaths() {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mac OS 9 Startup Preview</title>
+    <title>Startup Preview</title>
     <link rel="stylesheet" href="/assets/css/mac-startup.css" />
   </head>
   <body class="mac-startup-preview">
     <main>
-      <h1>Mac OS 9 Startup Preview</h1>
+      <h1>Startup Preview</h1>
       <button type="button" id="replay-startup" autofocus>Replay startup</button>
     </main>
     <script is:inline src="/assets/js/mac-startup.js" data-startup-preview></script>

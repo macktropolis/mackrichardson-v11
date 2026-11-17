@@ -34,6 +34,12 @@ windows also use the notebook interface. Resizing across the breakpoint
 returns the current page's content between normal flow and its desktop window.
 The independent Holiday Cards archive keeps its Christmas theme.
 
+On a first visit, the site shows a Newton Welcome panel through 1024px and
+the Mac OS 9 startup screen at wider widths. Both use the same startup content
+and dismiss automatically or with Continue or Escape. Return visits open
+directly to the requested page. On the dev server, visit `/startup/` to replay
+the presentation at either width.
+
 ## Newton mobile theme
 
 **Status:** Newton theme merged into `main` on November 2, 2026.

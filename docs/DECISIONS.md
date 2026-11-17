@@ -58,3 +58,13 @@ Entries are chronological. Preserve superseded entries and link their replacemen
 - **Decision** — Show the MackOS 9 startup in the shared layout, then dismiss it on the requested page. A local storage flag controls first-visit playback. Keep Holiday Cards independent, and use a dev-only route for repeatable preview.
 - **Rationale** — In-place playback preserves deep links and lets the standalone archive open directly. The preview supports visual iteration without changing first-visit state.
 - **References** — [Architecture](ARCHITECTURE.md), [startup script](../public/assets/js/mac-startup.js).
+
+## DEC-006: Match startup presentation to the active theme
+
+- **Date** — 2026-11-17
+- **Status** — Accepted
+- **Category** — UI/UX
+- **Decision** — Present the existing startup content in a Newton Welcome panel through 1024px, with Mac OS 9 styling above that width.
+- **Rationale** — The first-run Welcome panel draws on the MessagePad Setup screen and matches the notebook visitors see after dismissal.
+- **Consequences** — Both presentations share first-visit state, timing, controls, and the dev preview.
+- **References** — [Startup architecture](ARCHITECTURE.md), [Apple MessagePad Handbook](https://web.mit.edu/unna/apple/documentation/OMP-130/NewtonHandbook%28OS2.0%29.pdf).
